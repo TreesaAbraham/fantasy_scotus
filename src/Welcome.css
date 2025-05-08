@@ -1,0 +1,36 @@
+.Welcome {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: var(--background);
+}
+
+.Welcome__card {
+  text-align: center;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  max-width: 400px;
+}
+
+.Welcome__actions {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  background: var(--primary);
+  color: white;
+  text-decoration: none;
+}
+.btn--outline {
+  background: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+}

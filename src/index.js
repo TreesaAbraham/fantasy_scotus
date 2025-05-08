@@ -1,16 +1,42 @@
+// src/index.js
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
+import Welcome from './Welcome';
+import Signup from './Signup';
+import Login from './Login';
+import MainApp from './MainApp';
+import { useAuth } from './hooks/useAuth';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+function Index() {
+  const session = useAuth();
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* Public routes */}
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/"
+          element={session ? <Navigate to="/app" /> : <Welcome />}
+        />
+
+        {/* Protected */}
+        <Route
+          path="/app/*"
+          element={session ? <MainApp /> : <Navigate to="/" />}
+        />
+
+        {/* Fallback */}
+        <Route
+          path="*"
+          element={<Navigate to={session ? "/app" : "/"} />}
+        />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default Index;
+// src/app.js
