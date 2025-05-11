@@ -1,15 +1,27 @@
 // src/hooks/useAuth.js
 import { useState, useEffect } from 'react';
-import { supabase } from '../supabaseClient';  // ← this path must point at the file above
+import { supabase }        from '../supabaseClient';
 
 export function useAuth() {
-  const [session, setSession] = useState(supabase.auth.session());
+  const [session, setSession] = useState(null);
 
   useEffect(() => {
-    const { data: listener } = supabase.auth.onAuthStateChange(
-      (_event, newSession) => setSession(newSession)
+    // 1) fetch initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    // 2) subscribe to future changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (_event, newSession) => {
+        setSession(newSession);
+      }
     );
-    return () => listener.unsubscribe();
+
+    // 3) cleanup on unmount
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
 
   return session;

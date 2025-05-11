@@ -1,5 +1,5 @@
 
-import './Welcome.css';
+import './scotus.css';
 import React from 'react';
 import { useAuth } from './hooks/useAuth';
 
