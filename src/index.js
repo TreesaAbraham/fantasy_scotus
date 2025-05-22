@@ -1,13 +1,14 @@
 // src/index.js
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './scotus.css';                       // your global stylesheet
+import './scotus.css';  // Global stylesheet
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import Welcome            from './Welcome';
 import GettingStarted     from './GettingStarted';
-import AboutFantasySCOTUS from './AboutFantasy';
+import AboutFantasy       from './AboutFantasy';
 import OfficialRules      from './OfficialRules';
+import LeagueList         from './LeagueList';
 import Signup             from './Signup';
 import Login              from './Login';
 import MainApp            from './MainApp';
@@ -22,16 +23,19 @@ function App() {
         {/* 1. Landing page */}
         <Route path="/" element={<Welcome />} />
 
-        {/* 2. Your info pages */}
+        {/* 2. Info pages */}
         <Route path="/getting-started"       element={<GettingStarted />} />
-        <Route path="/about-fantasy-scotus"  element={<AboutFantasySCOTUS />} />
+        <Route path="/about-fantasy-scotus"  element={<AboutFantasy />} />
         <Route path="/official-rules"        element={<OfficialRules />} />
 
-        {/* 3. Auth */}
+        {/* 3. League list */}
+        <Route path="/leagues" element={<LeagueList />} />
+
+        {/* 4. Authentication */}
         <Route path="/signup" element={<Signup />} />
         <Route path="/login"  element={<Login />}  />
 
-        {/* 4. Protected */}
+        {/* 5. Protected application */}
         <Route
           path="/app/*"
           element={
@@ -41,12 +45,13 @@ function App() {
           }
         />
 
-        {/* 5. Catch-all */}
+        {/* 6. Catch-all fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
 }
 
+// Mount the app
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);
