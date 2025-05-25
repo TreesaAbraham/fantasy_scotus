@@ -1,168 +1,123 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+/* src/scotus.css */
 
-/* base styles */
+/* 1. Define your color variables */
+:root {
+  --color-midnight-navy: #0F1C3F;   /* Midnight Navy */
+  --color-charcoal-gray: #333333;  /* Charcoal Gray */
+  --color-ivory: #F8F7F5;          /* Ivory/Off-White */
+}
+
+/* 2. Global resets & base typography */
 * {
-  margin: 0;
-  font-family: 'Quicksand', sans-serif;
-  color: #333;
-}
-.navbar {
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  max-width: 600px;
-  margin: 0 auto;
-  border-bottom: 1px solid #f2f2f2;
-}
-.navbar h1 {
-  color: #167d71;
-}
-.navbar .links {
-  margin-left: auto;
-}
-.navbar a {
-  margin-left: 16px;
-  text-decoration: none;
-  padding: 6px;
-}
-.navbar a:hover {
-  color: #167d71;
-}
-.content {
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 20px;
-}
-div {
-  background-color: #f9b805;
-  padding: 20px;
-}
-/*blog previews / list */
-.blog-preview {
-  margin-bottom: 20px;
-  padding: 20px;
-  border: 1px solid #f2f2f2;
-}
-.blog-preview:hover {
-  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.1);
-}
-.blog-preview h2 {
-  margin-bottom: 10px;
-  font-size:20px;
-  color: #167d71
-  
-}
-.blog-preview a{
-  text-decoration: none;
-  color: #333;
-}
-
-.blog-details h2 {
-  font-size: 20px;
-  color: #167d71;
-  margin-bottom: 10px;
-}
-.blog-details div {
-  margin: 20px 0;
-}
-
-/* create new blog form */
-.create {
-  max-width: 400px;
-  margin: 0 auto;
-  text-align: center;
-}
-.create label {
-  text-align: left;
-  display: block;
-}
-.create h2 {
-  font-size: 20px;
-  color: #167d71;
-  margin-bottom: 30px;
-}
-.create input, .create textarea, .create select {
-  width: 100%;
-  padding: 6px 10px;
-  margin: 10px 0;
-  border: 1px solid #ddd;
   box-sizing: border-box;
-  display: block;
-}
-.create button {
-  background: #167d71;
-  color: #fff;
-  border: 0;
-  padding: 8px;
-  border-radius: 8px;
-  cursor: pointer;
+  margin: 0;
+  padding: 0;
 }
 
-.blog-details button{
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 10px;
-  background-color: #167d71;
-  color: #fff;
-  border: 0;
-  border-radius: 8px;
-  cursor: pointer;
+body {
+  background-color: var(--color-ivory);
+  color: var(--color-charcoal-gray);
+  font-family: Helvetica, Arial, sans-serif;
+  line-height: 1.6;
 }
-.home button {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 5px;
-  background-color: #167d71;
-  color: #fff;
-  border: 0;
-  border-radius: 8px;
-  cursor: pointer;
+
+/* 3. Headings in Baskerville, in midnight navy */
+h1, h2, h3, h4, h5, h6 {
+  font-family: Baskerville, serif;
+  color: var(--color-midnight-navy);
+  margin-bottom: 0.5em;
 }
-.notFound h2{
- color: white;
+
+/* 4. Links */
+a {
+  color: var(--color-midnight-navy);
+  text-decoration: none;
 }
-/* Navbar */
+a:hover {
+  text-decoration: underline;
+}
+
+/* 5. Navbar */
 .navbar {
-  background-color: #f8f8f8;
+  background-color: var(--color-midnight-navy);
   padding: 1rem;
   display: flex;
-  justify-content: flex-end;
-  border-bottom: 1px solid #ddd;
+  align-items: center;
+  gap: 1rem;
 }
-
-.nav-item.dropdown {
+.navbar .nav-item {
   position: relative;
 }
-
-.dropbtn {
+.navbar .home-btn,
+.navbar .dropbtn {
+  font-family: Helvetica, sans-serif;
+  color: var(--color-ivory);
   background: none;
   border: none;
-  font-size: 1rem;
   cursor: pointer;
   padding: 0.5rem 1rem;
 }
+.navbar .home-btn:hover,
+.navbar .dropbtn:hover {
+  opacity: 0.8;
+}
 
+/* 6. Dropdown menu */
 .dropdown-content {
   display: none;
   position: absolute;
-  right: 0;
-  background-color: #fff;
-  min-width: 180px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-  z-index: 1;
+  top: calc(100% + 0.25rem);
+  left: 0;
+  background-color: var(--color-ivory);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--color-charcoal-gray);
+  border-radius: 4px;
+  min-width: 160px;
+  z-index: 10;
 }
-
-.dropdown-content a {
-  color: #333;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-content a:hover {
-  background-color: #f1f1f1;
-}
-
 .nav-item.dropdown:hover .dropdown-content {
   display: block;
+}
+.dropdown-content a {
+  display: block;
+  font-family: Helvetica, sans-serif;
+  color: var(--color-midnight-navy);
+  padding: 0.5rem 1rem;
+}
+.dropdown-content a:hover {
+  background-color: var(--color-charcoal-gray);
+  color: var(--color-ivory);
+}
+
+/* 7. Buttons */
+button {
+  font-family: Helvetica, sans-serif;
+  background-color: var(--color-midnight-navy);
+  color: var(--color-ivory);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: var(--color-charcoal-gray);
+}
+
+/* 8. League list table styling */
+.league-list table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-family: Helvetica, sans-serif;
+}
+.league-list th,
+.league-list td {
+  border: 1px solid var(--color-charcoal-gray);
+  padding: 0.75rem;
+}
+.league-list th {
+  font-family: Baskerville, serif;
+  font-weight: bold;
+  background-color: var(--color-ivory);
+  text-align: left;
 }
