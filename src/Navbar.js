@@ -8,7 +8,7 @@ export default function Navbar() {
     <nav className="navbar">
       {/* Welcome button */}
       <Link to="/" className="nav-item home-btn">
-        Welcome
+        Home
       </Link>
 
       {/* League dropdown */}
@@ -18,6 +18,14 @@ export default function Navbar() {
         </Link>
         <div className="dropdown-content">
           <Link to="/leagues">League List</Link>
+        </div>
+      </div>
+
+      {/* Court dropdown */}
+      <div className="nav-item dropdown">
+        <button className="dropbtn">Court</button>
+        <div className="dropdown-content">
+          <Link to="/cases">Cases</Link>
         </div>
       </div>
 
