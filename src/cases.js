@@ -1,4 +1,4 @@
-// src/Cases.js
+// src/cases.js
 import React, { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
 import Navbar from './Navbar';
@@ -11,11 +11,11 @@ export default function Cases() {
   useEffect(() => {
     async function fetchCases() {
       setLoading(true);
-      // Adjust 'cases' and 'is_active' to match your actual table/column names
       const { data, error } = await supabase
-        .from('Cases')
-        .select('id, title, docket_number, argued_date')
-        .eq('is_active', true);
+        .from('cases')
+        .select(
+          'id, created_at, case_number, case_name, question_presented, date_argued, fantasy_prediction, fantasy_prediction_split, status_update'
+        ); // Removed filter on is_active since column doesn't exist
 
       if (error) {
         setError(error.message);
@@ -29,27 +29,42 @@ export default function Cases() {
   }, []);
 
   if (loading) return <p>Loading cases…</p>;
-  if (error) return <p>Error loading cases: {error}</p>;
+  if (error)   return <p>Error loading cases: {error}</p>;
 
   return (
     <>
       <Navbar />
       <div className="case-list">
-        <h1>Active Supreme Court Cases</h1>
+        <h1>Supreme Court Cases</h1>
+
+        {/* Legend */}
+        <div className="legend">
+          <span className="legend-item correct">✔</span> - correct prediction&nbsp;&nbsp;
+          <span className="legend-item wrong">✖</span> - wrong prediction
+        </div>
+
         <table>
           <thead>
             <tr>
-              <th>Case Title</th>
-              <th>Docket #</th>
-              <th>Argued Date</th>
+              <th />
+              <th>Case Name</th>
+              <th>Case Number</th>
+              <th>Date Argued</th>
+              <th>Fantasy SCOTUS</th>
+              <th>Prediction Split</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
             {cases.map(c => (
               <tr key={c.id}>
-                <td>{c.title}</td>
-                <td>{c.docket_number}</td>
-                <td>{new Date(c.argued_date).toLocaleDateString()}</td>
+                <td>{/* Placeholder for correct/wrong icon */}</td>
+                <td>{c.case_name}</td>
+                <td>{c.case_number}</td>
+                <td>{c.date_argued ? new Date(c.date_argued).toLocaleDateString() : '—'}</td>
+                <td>{c.fantasy_prediction}</td>
+                <td>{c.fantasy_prediction_split}</td>
+                <td>{c.status_update}</td>
               </tr>
             ))}
           </tbody>
