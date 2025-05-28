@@ -1,12 +1,12 @@
-// src/Navbar.js
+// src/components/Navbar.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './scotus.css';  // your global stylesheet with navbar/dropdown styles
+import '../scotus.css';  // global styles already included, but fine to keep here
 
 export default function Navbar() {
   return (
     <nav className="navbar">
-      {/* Welcome button */}
+      {/* Home button */}
       <Link to="/" className="nav-item home-btn">
         Home
       </Link>
@@ -25,6 +25,7 @@ export default function Navbar() {
       <div className="nav-item dropdown">
         <button className="dropbtn">Court</button>
         <div className="dropdown-content">
+          <Link to="/court">Dashboard</Link>     {/* <-- new link */}
           <Link to="/cases">Cases</Link>
         </div>
       </div>

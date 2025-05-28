@@ -1,13 +1,12 @@
 // src/GettingStarted.js
 import React from 'react';
-import Navbar from './Navbar';
+
 import { Link } from 'react-router-dom';
 
 export default function GettingStarted() {
   return (
     <>
-    {/* Reusable navigation bar */}
-          <Navbar />
+
 
       <div className="getting-started">
         <h1>Getting Started with FantasySCOTUS</h1>

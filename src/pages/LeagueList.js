@@ -1,7 +1,7 @@
 // src/LeagueList.js
 import React, { useState, useEffect } from 'react';
-import { supabase } from './supabaseClient';
-import Navbar from './Navbar';
+import { supabase } from '../supabaseClient';
+
 
 export default function LeagueList() {
   const [leagues, setLeagues] = useState([]);
@@ -36,7 +36,7 @@ export default function LeagueList() {
 
   return (
     <>
-      <Navbar />
+    
       <div className="league-list">
         <h1>All Leagues</h1>
         <table>

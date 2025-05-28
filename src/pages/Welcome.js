@@ -1,8 +1,8 @@
 // src/Welcome.js
 import React from 'react';
 
-import './scotus.css';
-import Navbar from './Navbar'; // Import the reusable Navbar component
+
+
 
 function Welcome() {
   const title = 'Welcome to FANTASYSCOTUS';
@@ -12,8 +12,7 @@ function Welcome() {
   return (
     <>
     {/* Reusable navigation bar */}
-          <Navbar />
-     
+      
 
       <div className="App">
         <div className="content">

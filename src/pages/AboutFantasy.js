@@ -1,12 +1,12 @@
 // src/AboutFantasy.js
 import React from 'react';
-import Navbar from './Navbar';
+
 
 export default function AboutFantasy() {
   return (
     <>
       {/* Reusable navigation bar */}
-      <Navbar />
+
 
       <div className="about-fantasy">
         <h1>About FantasySCOTUS</h1>

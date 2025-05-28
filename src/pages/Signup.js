@@ -1,10 +1,9 @@
-// src/Login.js
+// src/Signup.js
 import React, { useState } from 'react';
-import { supabase } from './supabaseClient';
+import { supabase } from '../supabaseClient';
 import { useNavigate, Link } from 'react-router-dom';
 
-
-export default function Login() {
+export default function Signup() {
   const [email, setEmail]       = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -14,7 +13,7 @@ export default function Login() {
     e.preventDefault();
     setErrorMsg('');
 
-    const { error } = await supabase.auth.signIn({
+    const { error } = await supabase.auth.signUp({
       email,
       password,
     });
@@ -22,14 +21,14 @@ export default function Login() {
     if (error) {
       setErrorMsg(error.message);
     } else {
-      // Redirect into your protected area
-      navigate('/app');
+      // Supabase sends a confirmation email by default
+      navigate('/');
     }
   };
 
   return (
     <div style={{ maxWidth: 400, margin: '2rem auto', padding: 20 }}>
-      <h2>Log In</h2>
+      <h2>Sign Up</h2>
       {errorMsg && <p style={{ color: 'red' }}>{errorMsg}</p>}
       <form onSubmit={handleSubmit}>
         <label>
@@ -53,11 +52,11 @@ export default function Login() {
           />
         </label>
         <button type="submit" style={{ padding: '8px 16px' }}>
-          Sign In
+          Create Account
         </button>
       </form>
       <p style={{ marginTop: 12 }}>
-        Don’t have an account? <Link to="/signup">Sign up</Link>
+        Already have an account? <Link to="/login">Log in</Link>
       </p>
     </div>
   );

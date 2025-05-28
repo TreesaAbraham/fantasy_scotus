@@ -1,7 +1,6 @@
 // src/cases.js
 import React, { useState, useEffect } from 'react';
-import { supabase } from './supabaseClient';
-import Navbar from './Navbar';
+import { supabase } from '../supabaseClient';
 
 export default function Cases() {
   const [cases, setCases] = useState([]);
@@ -33,7 +32,7 @@ export default function Cases() {
 
   return (
     <>
-      <Navbar />
+
       <div className="case-list">
         <h1>Supreme Court Cases</h1>
 

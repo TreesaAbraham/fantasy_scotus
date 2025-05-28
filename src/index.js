@@ -1,25 +1,38 @@
 // src/index.js
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './scotus.css';  // Global stylesheet
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import './scotus.css';                          // global styles
 
-import Welcome        from './Welcome';
-import GettingStarted from './GettingStarted';
-import AboutFantasy   from './AboutFantasy';
-import OfficialRules  from './OfficialRules';
-import LeagueList     from './LeagueList';
-import Cases          from './cases';
-import Signup         from './Signup';
-import Login          from './Login';
-import MainApp        from './MainApp';
-import { useAuth }    from './hooks/useAuth';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
+
+// 📄 page components (now all live in src/pages/)
+import Welcome         from './pages/Welcome';
+import GettingStarted  from './pages/GettingStarted';
+import AboutFantasy    from './pages/AboutFantasy';
+import OfficialRules   from './pages/OfficialRules';
+import LeagueList      from './pages/LeagueList';
+import CasesList       from './pages/CaseList';      // renamed file
+import Signup          from './pages/Signup';
+import Login           from './pages/Login';
+import CourtDashboard  from './pages/CourtDashboard'; // new scaffold
+
+// other app pieces
+import MainApp  from './MainApp';
+import { useAuth } from './hooks/useAuth';
+import Navbar from './components/Navbar';
+
 
 function App() {
   const session = useAuth();
 
   return (
     <BrowserRouter>
+    <Navbar /> {/* Reusable navigation bar */}
       <Routes>
         {/* 1. Landing page */}
         <Route path="/" element={<Welcome />} />
@@ -32,30 +45,28 @@ function App() {
         {/* 3. League list */}
         <Route path="/leagues" element={<LeagueList />} />
 
-        {/* 4. Cases page */}
-        <Route path="/cases" element={<Cases />} />
+        {/* 4. Cases list */}
+        <Route path="/cases" element={<CasesList />} />
 
-        {/* 5. Authentication */}
+        {/* 5. Dashboard (new) */}
+        <Route path="/court" element={<CourtDashboard />} />
+
+        {/* 6. Authentication */}
         <Route path="/signup" element={<Signup />} />
         <Route path="/login"  element={<Login />}  />
 
-        {/* 6. Protected application */}
+        {/* 7. Protected area */}
         <Route
           path="/app/*"
-          element={
-            session
-              ? <MainApp />
-              : <Navigate to="/" replace />
-          }
+          element={session ? <MainApp /> : <Navigate to="/" replace />}
         />
 
-        {/* 7. Catch-all fallback */}
+        {/* 8. Catch-all */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
 }
 
-// Mount the app
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);

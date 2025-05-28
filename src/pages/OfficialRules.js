@@ -1,13 +1,12 @@
 // src/OfficialRules.js
 import React from 'react';
-import Navbar from './Navbar';
 
 
 export default function OfficialRules() {
   return (
     <>
     {/* Reusable navigation bar */}
-          <Navbar />
+
       <div className="official-rules">
       <h1>Official Rules of the FantasySCOTUS Contest</h1>
 
