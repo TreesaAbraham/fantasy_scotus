@@ -16,16 +16,16 @@ use 3o
 
 * [ ] **Court Dashboard Screen**
 
-  * [ ] **PR1 – Dashboard scaffold**
+  * [x] **PR1 – Dashboard scaffold**
 
-    * [ ] feat: add `/court` route and `<CourtDashboard>` placeholder
-    * [ ] chore: add scroll‑view wrapper with safe‑area insets
-    * [ ] test: route renders without crash
-  * [ ] **PR2 – Top Navigation Bar**
+    * [x] feat: add `/court` route and `<CourtDashboard>` placeholder
+    * [x] chore: add scroll‑view wrapper with safe‑area insets
+    * [x] test: route renders without crash
+  * [x] **PR2 – Top Navigation Bar**
 
-    * [ ] feat: create `<TopNav>` with back, title, search
-    * [ ] style: apply purple‑600 text & spacing tokens
-    * [ ] test: snapshot neutral & long‑title states
+    * [x] feat: create `<TopNav>` with back, title, search
+    * [x] style: apply purple‑600 text & spacing tokens
+    * [x] test: snapshot neutral & long‑title states
   * [ ] **PR3 – Filter Tabs**
 
     * [ ] feat: build `<PillTabBar>` component

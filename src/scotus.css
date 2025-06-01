@@ -122,3 +122,27 @@ button:hover {
   background-color: var(--color-ivory);
   text-align: left;
 }
+
+/* === Pill Tab Bar ================================================= */
+.pill-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.75rem 0;
+}
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.4rem 0.9rem;
+  background: #f3f0ff;           /* light purple */
+  color: #6930c3;                /* purple-600 */
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.pill .icon { font-size: 0.9rem; }
+.pill.active {
+  background: #6930c3;
+  color: #fff;
+}
