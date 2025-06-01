@@ -1,7 +1,8 @@
 // src/pages/CourtDashboard.js
 import React from 'react';
-import TopNav     from '../components/TopNav';
-import PillTabBar from '../components/PillTabBar';
+import TopNav          from '../components/TopNav';
+import PillTabBar      from '../components/PillTabBar';
+import PredictionsCard from '../components/PredictionsCard';   // ← NEW
 
 export default function CourtDashboard() {
   const tabs = [
@@ -24,7 +25,13 @@ export default function CourtDashboard() {
       />
 
       <main className="page">
+        {/* Existing placeholder header (keep or remove as you like) */}
         <h1>Court Dashboard (work in progress)</h1>
+
+        {/* 🔹 Predictions call-out card */}
+        <section style={{ marginTop: '1.5rem' }}>
+          <PredictionsCard />
+        </section>
       </main>
     </>
   );

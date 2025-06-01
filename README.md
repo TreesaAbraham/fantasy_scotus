@@ -26,13 +26,13 @@ use 3o
     * [x] feat: create `<TopNav>` with back, title, search
     * [x] style: apply purple‑600 text & spacing tokens
     * [x] test: snapshot neutral & long‑title states
-  * [ ] **PR3 – Filter Tabs**
+  * [x] **PR3 – Filter Tabs**
 
-    * [ ] feat: build `<PillTabBar>` component
-    * [ ] feat: add icons (file, flame, clipboard)
-    * [ ] feat: wire `selectedTab` state & handler
-    * [ ] docs: storybook controls for pill sizes
-    * [ ] test: tab click updates selection
+    * [x] feat: build `<PillTabBar>` component
+    * [x] feat: add icons (file, flame, clipboard)
+    * [x] feat: wire `selectedTab` state & handler
+    * [x] docs: storybook controls for pill sizes
+    * [x] test: tab click updates selection
   * [ ] **PR4 – Predictions Call‑out Card**
 
     * [ ] feat: create `<PredictionsCard>` with CTA

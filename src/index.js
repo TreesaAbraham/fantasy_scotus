@@ -17,6 +17,7 @@ import AboutFantasy    from './pages/AboutFantasy';
 import OfficialRules   from './pages/OfficialRules';
 import LeagueList      from './pages/LeagueList';
 import CasesList       from './pages/CaseList';      // renamed file
+import Predictions     from './pages/Predictions';   // new scaffold
 import Signup          from './pages/Signup';
 import Login           from './pages/Login';
 import CourtDashboard  from './pages/CourtDashboard'; // new scaffold
@@ -47,6 +48,9 @@ function App() {
 
         {/* 4. Cases list */}
         <Route path="/cases" element={<CasesList />} />
+
+        {/* 4b. Predictions page */}
+      <Route path="/predictions" element={<Predictions />} />
 
         {/* 5. Dashboard (new) */}
         <Route path="/court" element={<CourtDashboard />} />
