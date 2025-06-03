@@ -1,148 +1,221 @@
-/* src/scotus.css */
+/* ========================================================================
+   SCOTUS.CSS  –  Global styles for FantasySCOTUS React app
+   Colour palette + base typography + common components
+   ========================================================================= */
 
-/* 1. Define your color variables */
-:root {
-  --color-midnight-navy: #0F1C3F;   /* Midnight Navy */
-  --color-charcoal-gray: #333333;  /* Charcoal Gray */
-  --color-ivory: #F8F7F5;          /* Ivory/Off-White */
-}
-
-/* 2. Global resets & base typography */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  background-color: var(--color-ivory);
-  color: var(--color-charcoal-gray);
-  font-family: Helvetica, Arial, sans-serif;
-  line-height: 1.6;
-}
-
-/* 3. Headings in Baskerville, in midnight navy */
-h1, h2, h3, h4, h5, h6 {
-  font-family: Baskerville, serif;
-  color: var(--color-midnight-navy);
-  margin-bottom: 0.5em;
-}
-
-/* 4. Links */
-a {
-  color: var(--color-midnight-navy);
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
-}
-
-/* 5. Navbar */
-.navbar {
-  background-color: var(--color-midnight-navy);
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-size: 13px;
-}
-.navbar .nav-item {
-  position: relative;
-}
-.navbar .home-btn,
-.navbar .dropbtn {
-  font-family: Helvetica, sans-serif;
-  color: var(--color-ivory);
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem 1rem;
-}
-.navbar .home-btn:hover,
-.navbar .dropbtn:hover {
-  opacity: 0.8;
-}
-
-/* 6. Dropdown menu (fixed hover gap) */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  top: 100%; /* directly below button to avoid hover gap */
-  left: 0;
-  background-color: var(--color-ivory);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border: 1px solid var(--color-charcoal-gray);
-  border-radius: 4px;
-  min-width: 160px;
-  z-index: 10;
-}
-.nav-item.dropdown:hover .dropdown-content {
-  display: block;
-}
-.dropdown-content a {
-  display: block;
-  font-family: Helvetica, sans-serif;
-  color: var(--color-midnight-navy);
-  padding: 0.75rem 1rem; /* increased padding to enlarge hit area */
-}
-.dropdown-content a:hover {
-  background-color: var(--color-charcoal-gray);
-  color: var(--color-ivory);
-}
-
-/* 7. Buttons */
-button {
-  font-family: Helvetica, sans-serif;
-  background-color: var(--color-midnight-navy);
-  color: var(--color-ivory);
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-}
-button:hover {
-  background-color: var(--color-charcoal-gray);
-}
-
-/* 8. League list table styling */
-.league-list table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
-  font-family: Helvetica, sans-serif;
-}
-.league-list th,
-.league-list td {
-  border: 1px solid var(--color-charcoal-gray);
-  padding: 0.75rem;
-}
-.league-list th {
-  font-family: Baskerville, serif;
-  font-weight: bold;
-  background-color: var(--color-ivory);
-  text-align: left;
-}
-
-/* === Pill Tab Bar ================================================= */
-.pill-tabs {
-  display: flex;
-  gap: 0.5rem;
-  margin: 0.75rem 0;
-}
-.pill {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  padding: 0.4rem 0.9rem;
-  background: #f3f0ff;           /* light purple */
-  color: #6930c3;                /* purple-600 */
-  border: 1px solid transparent;
-  border-radius: 9999px;
-  font-size: 0.85rem;
-  cursor: pointer;
-}
-.pill .icon { font-size: 0.9rem; }
-.pill.active {
-  background: #6930c3;
-  color: #fff;
-}
+/* ------------------------------------------------------------------------
+   1. Colour tokens
+   ------------------------------------------------------------------------ */
+   :root {
+    /* Core brand */
+    --color-midnight-navy: #0F1C3F;   /* Dark header/nav */
+    --color-royal-purple : #6930C3;   /* Primary accent */
+    --color-indigo-600   : #4F46E5;   /* CTA buttons / links */
+    --color-charcoal     : #333333;   /* Body text */
+    --color-ivory        : #F8F7F5;   /* Global background */
+  
+    /* Neutrals */
+    --color-slate-100: #F1F5F9;
+    --color-slate-200: #E2E8F0;
+    --color-slate-300: #CBD5E1;
+    --color-slate-800: #1E293B;
+  
+    /* Utility */
+    --color-light-purple: #F3F0FF; /* pill background */
+    --color-danger      : #DC2626; /* error text */
+  }
+  
+  /* ------------------------------------------------------------------------
+     2. Global resets & base typography
+     ------------------------------------------------------------------------ */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  html, body {
+    height: 100%;
+  }
+  
+  body {
+    background-color: var(--color-ivory);
+    color: var(--color-charcoal);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Baskerville", serif;
+    color: var(--color-midnight-navy);
+    margin-bottom: 0.5em;
+  }
+  
+  p {
+    margin-bottom: 1em;
+  }
+  
+  a {
+    color: var(--color-indigo-600);
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  /* ------------------------------------------------------------------------
+     3. Layout helpers
+     ------------------------------------------------------------------------ */
+  .page {
+    padding: 1.5rem;
+  }
+  
+  /* ------------------------------------------------------------------------
+     4. Navbar
+     ------------------------------------------------------------------------ */
+  .navbar {
+    background-color: var(--color-midnight-navy);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.85rem;
+  }
+  .navbar .nav-item { position: relative; }
+  .navbar .home-btn,
+  .navbar .dropbtn {
+    color: var(--color-ivory);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+  }
+  .navbar .home-btn:hover,
+  .navbar .dropbtn:hover { opacity: 0.85; }
+  
+  /* Dropdown */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--color-ivory);
+    border: 1px solid var(--color-slate-200);
+    border-radius: 4px;
+    min-width: 180px;
+    z-index: 20;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  }
+  .nav-item.dropdown:hover .dropdown-content { display: block; }
+  .dropdown-content a {
+    display: block;
+    color: var(--color-midnight-navy);
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+  .dropdown-content a:hover { background: var(--color-slate-100); }
+  
+  /* ------------------------------------------------------------------------
+     5. Buttons & CTA
+     ------------------------------------------------------------------------ */
+  button {
+    font-family: inherit;
+    font-weight: 500;
+    background: var(--color-indigo-600);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.55rem 1.25rem;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  button:hover { background: #3730a3; /* indigo-700 */ }
+  button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  /* ------------------------------------------------------------------------
+     6. Cards (generic)
+     ------------------------------------------------------------------------ */
+  .card {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    padding: 1.25rem 1.5rem;
+  }
+  
+  /* ------------------------------------------------------------------------
+     7. Pill Tab Bar
+     ------------------------------------------------------------------------ */
+  .pill-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin: 0.75rem 0 1.25rem;
+  }
+  
+  .pill {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.45rem 1rem;
+    background: var(--color-light-purple);
+    color: var(--color-royal-purple);
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .pill .icon { font-size: 0.9rem; }
+  
+  .pill:hover {
+    background: #e0dbff;
+  }
+  
+  .pill.active {
+    background: var(--color-royal-purple);
+    color: #fff;
+  }
+  
+  /* ------------------------------------------------------------------------
+     8. Tables (League & Case Lists)
+     ------------------------------------------------------------------------ */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+  
+  thead {
+    background: var(--color-slate-100);
+  }
+  
+  th, td {
+    padding: 0.75rem 0.9rem;
+    border: 1px solid var(--color-slate-200);
+    text-align: left;
+  }
+  
+  th {
+    font-family: "Baskerville", serif;
+    color: var(--color-midnight-navy);
+  }
+  
+  tbody tr:nth-child(even) { background: var(--color-slate-100); }
+  
+  tbody tr:hover { background: var(--color-slate-200); }
+  
+  /* ------------------------------------------------------------------------
+     9. Utility classes
+     ------------------------------------------------------------------------ */
+  .text-center { text-align: center; }
+  .mt-1 { margin-top: 0.25rem; }
+  .mt-2 { margin-top: 0.5rem; }
+  .mt-4 { margin-top: 1rem; }
+  
+  /* ------------------------------------------------------------------------
+     End of file
+     ------------------------------------------------------------------------ */
+  

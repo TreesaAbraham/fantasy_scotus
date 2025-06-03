@@ -1,27 +1,30 @@
+// src/components/PredictionsCard.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import '../scotus.css';                     // global styles only
+import illustration from '../assets/predictions-illustrations.png'; // change to .svg if needed
 
 /**
- * Call-out card that links to /predictions.
+ * Re‑usable call‑out card that links users to the /predictions page.
+ * All visual styling is handled by classes defined in scotus.css:
+ *   .card, .predictions-card, .predictions-card__content, .predictions-card__illustration
  */
 export default function PredictionsCard() {
   const navigate = useNavigate();
 
   return (
-    <div className="rounded-2xl shadow-md p-6 bg-white flex flex-col items-center text-center">
-      
-      <h2 className="text-xl font-semibold mb-2">Ready to test your foresight?</h2>
-      <p className="mb-6 text-gray-600 max-w-sm">
-        Make your predictions for upcoming Supreme Court decisions and see how
-        you stack up against the crowd.
-      </p>
-      <button
-        onClick={() => navigate('/predictions')}
-        className="px-5 py-2 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium transition-colors"
-      >
-        Go to Predictions
-      </button>
+    <div className="card predictions-card">
+      <div className="predictions-card__content">
+        <h3>Check out your predictions and see your progress!</h3>
+        <button onClick={() => navigate('/predictions')}>Check&nbsp;Now</button>
+      </div>
+
+      {/* Illustration (right side) */}
+      <img
+        src={illustration}
+        alt="Predictions illustration"
+        className="predictions-card__illustration"
+      />
     </div>
   );
 }

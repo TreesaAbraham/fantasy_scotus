@@ -48,6 +48,7 @@ function App() {
 
         {/* 4. Cases list */}
         <Route path="/cases" element={<CasesList />} />
+        
 
         {/* 4b. Predictions page */}
       <Route path="/predictions" element={<Predictions />} />
