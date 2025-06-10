@@ -39,12 +39,12 @@ use 3o
     * [x] feat: hook navigation to `/predictions`
     * [x] style: import illustration asset
     * [x] test: button press navigates
-  * [ ] **PR5 – Reusable Dashboard Card**
+  * [x] **PR5 – Reusable Dashboard Card**
 
-    * [ ] feat: generic `<DashboardCard>` (title, copy, illustration, progress)
-    * [ ] style: add `<ProgressBar>` sub‑component
-    * [ ] docs: usage examples
-    * [ ] test: renders with different progress values
+    * [x] feat: generic `<DashboardCard>` (title, copy, illustration, progress)
+    * [x] style: add `<ProgressBar>` sub‑component
+    * [x] docs: usage examples
+    * [x] test: renders with different progress values
   * [ ] **PR6 – Card Instances**
 
     * [ ] feat: add `cardData` array in `CourtDashboard`

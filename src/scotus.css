@@ -256,6 +256,26 @@
   box-shadow: 0 6px 24px rgba(0,0,0,0.08);
   transform: translateY(-2px);
 }
+/* DashboardCard layout */
+.dashboard-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  cursor: pointer;
+}
+.dashboard-card__text {
+  flex: 1 1 auto;
+}
+.dashboard-card__illustration {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+}
+.dashboard-card:hover {
+  box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+
 
 
   
