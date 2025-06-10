@@ -33,12 +33,12 @@ use 3o
     * [x] feat: wire `selectedTab` state & handler
     * [x] docs: storybook controls for pill sizes
     * [x] test: tab click updates selection
-  * [ ] **PR4 – Predictions Call‑out Card**
+  * [x] **PR4 – Predictions Call‑out Card**
 
-    * [ ] feat: create `<PredictionsCard>` with CTA
-    * [ ] feat: hook navigation to `/predictions`
-    * [ ] style: import illustration asset
-    * [ ] test: button press navigates
+    * [x] feat: create `<PredictionsCard>` with CTA
+    * [x] feat: hook navigation to `/predictions`
+    * [x] style: import illustration asset
+    * [x] test: button press navigates
   * [ ] **PR5 – Reusable Dashboard Card**
 
     * [ ] feat: generic `<DashboardCard>` (title, copy, illustration, progress)

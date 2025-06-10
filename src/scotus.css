@@ -214,6 +214,50 @@
   .mt-1 { margin-top: 0.25rem; }
   .mt-2 { margin-top: 0.5rem; }
   .mt-4 { margin-top: 1rem; }
+
+
+  /* ------------------------------------------------------------------------
+   Progress Bar
+   ------------------------------------------------------------------------ */
+.progress-outer {
+  background: var(--color-slate-200);
+  border-radius: 9999px;
+  height: 0.6rem;
+  overflow: hidden;
+}
+.progress-inner {
+  background: var(--color-royal-purple);
+  color: #fff;
+  font-size: 0.65rem;
+  line-height: 0.6rem;
+  white-space: nowrap;
+  text-align: right;
+  padding-right: 0.35rem;
+  transition: width 0.3s ease;
+}
+
+
+/* DashboardCard layout */
+.dashboard-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  cursor: pointer;
+}
+.dashboard-card__text {
+  flex: 1 1 auto;
+}
+.dashboard-card__illustration {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+}
+.dashboard-card:hover {
+  box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+
+
   
   /* ------------------------------------------------------------------------
      End of file

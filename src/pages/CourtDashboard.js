@@ -2,7 +2,9 @@
 import React from 'react';
 import TopNav          from '../components/TopNav';
 import PillTabBar      from '../components/PillTabBar';
-import PredictionsCard from '../components/PredictionsCard';   // ← NEW
+import DashboardCard   from '../components/DashboardCard';
+import illustration    from '../assets/predictions-illustrations.png';
+
 
 export default function CourtDashboard() {
   const tabs = [
@@ -30,7 +32,14 @@ export default function CourtDashboard() {
 
         {/* 🔹 Predictions call-out card */}
         <section style={{ marginTop: '1.5rem' }}>
-          <PredictionsCard />
+        
+        <DashboardCard
+            title="Check your predictions"
+            copy="See how your forecasts stack up."
+            illustration={illustration}
+            progress={70}
+/>
+
         </section>
       </main>
     </>
