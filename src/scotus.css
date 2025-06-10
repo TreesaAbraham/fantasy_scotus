@@ -7,23 +7,21 @@
    1. Colour tokens
    ------------------------------------------------------------------------ */
    :root {
-    /* Core brand */
-    --color-midnight-navy: #0F1C3F;   /* Dark header/nav */
-    --color-royal-purple : #6930C3;   /* Primary accent */
-    --color-indigo-600   : #4F46E5;   /* CTA buttons / links */
-    --color-charcoal     : #333333;   /* Body text */
-    --color-ivory        : #F8F7F5;   /* Global background */
+    /* Brand primaries */
+    --color-royal-purple : #5B55E6;   /* buttons, icons, active states */
+    --color-lavender-100 : #F0F2FF;   /* very light surfaces */
+    --color-lavender-300 : #C9C4FF;   /* mid lavender for pills */
   
-    /* Neutrals */
-    --color-slate-100: #F1F5F9;
-    --color-slate-200: #E2E8F0;
-    --color-slate-300: #CBD5E1;
-    --color-slate-800: #1E293B;
+    /* Themed card pastels */
+    --card-leaderboard : #D9FFE7;   /* mint */
+    --card-cases       : #FFF1BC;   /* pastel yellow */
+    --card-leagues     : #FFD8DB;   /* blush */
   
     /* Utility */
-    --color-light-purple: #F3F0FF; /* pill background */
-    --color-danger      : #DC2626; /* error text */
+    --progress-fill    : #6165FF;
+    --color-white      : #FFFFFF;
   }
+  
   
   /* ------------------------------------------------------------------------
      2. Global resets & base typography

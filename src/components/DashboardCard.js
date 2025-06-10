@@ -19,6 +19,7 @@ export default function DashboardCard({
   illustration,
   progress,
   onClick,
+  variant
 }) {
   return (
     <div
@@ -26,6 +27,7 @@ export default function DashboardCard({
       role={onClick ? 'button' : undefined}
       onClick={onClick}
       tabIndex={onClick ? 0 : undefined}
+      style={{ background: `var(--card-${variant})` }}
     >
       <div className="dashboard-card__text">
         <h3>{title}</h3>

@@ -1,26 +1,35 @@
 // src/components/ProgressBar.js
 import React from 'react';
-import '../scotus.css';   // the bar gets its colours from the palette tokens
+import { colors, space } from '../theme';   // ← tokens
+import '../scotus.css';
 
 /**
- * A thin progress bar.
+ * Thin progress bar.
  *
  * Props
- *  ─ progress   number   0-100 (anything outside is clamped)
- *  ─ label?     string   optional text inside the bar (“70 %”)
+ *  ─ progress   number   0-100 (clamped)
+ *  ─ label?     string   optional inside-bar text (“70 %”)
  */
 export default function ProgressBar({ progress, label }) {
   const pct = Math.min(100, Math.max(0, progress));
 
   return (
-    <div className="progress-outer">
+    <div
+      className="progress-outer"
+      style={{ height: space.sm }}              /* spacing token */
+    >
       <div
-        className="progress-inner"
-        style={{ width: `${pct}%` }}
+        role="progressbar"
         aria-valuenow={pct}
         aria-valuemin={0}
         aria-valuemax={100}
-        role="progressbar"
+        className="progress-inner"
+        style={{
+          width:       `${pct}%`,
+          background:  colors.progressFill,     /* colour token */
+          color:       colors.white,
+          paddingRight: space.xs,
+        }}
       >
         {label ?? `${pct}%`}
       </div>
