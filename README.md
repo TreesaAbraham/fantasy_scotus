@@ -45,13 +45,13 @@ use 3o
     * [x] style: add `<ProgressBar>` sub‑component
     * [x] docs: usage examples
     * [x] test: renders with different progress values
-  * [ ] **PR6 – Card Instances**
+  * [x] **PR6 – Card Instances**
 
-    * [ ] feat: add `cardData` array in `CourtDashboard`
-    * [ ] feat: render LeaderboardCard (70 %)
-    * [ ] feat: render CasesCard (60 %)
-    * [ ] feat: render LeaguesCard (0 %)
-    * [ ] chore: navigation handlers
+    * [x] feat: add `cardData` array in `CourtDashboard`
+    * [x] feat: render LeaderboardCard (70 %)
+    * [x] feat: render CasesCard (60 %)
+    * [x] feat: render LeaguesCard (0 %)
+    * [x] chore: navigation handlers
   * [ ] **PR7 – Bottom Navigation Bar**
 
     * [ ] feat: create `<BottomNav>` (Home, Star, Court\*, Plus, Profile)
