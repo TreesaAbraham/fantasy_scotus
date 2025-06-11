@@ -52,17 +52,17 @@ use 3o
     * [x] feat: render CasesCard (60 %)
     * [x] feat: render LeaguesCard (0 %)
     * [x] chore: navigation handlers
-  * [ ] **PR7 – Bottom Navigation Bar**
+  * [x] **PR7 – Bottom Navigation Bar**
 
-    * [ ] feat: create `<BottomNav>` (Home, Star, Court\*, Plus, Profile)
-    * [ ] feat: integrate vector icons
-    * [ ] style: active‑tab badge
-    * [ ] test: tab switch changes route
-  * [ ] **PR8 – Theme & Style**
+    * [x] feat: create `<BottomNav>` (Home, Star, Court\*, Plus, Profile)
+    * [x] feat: integrate vector icons
+    * [x] style: active‑tab badge
+    * [x] test: tab switch changes route
+  * [x] **PR8 – Theme & Style**
 
-    * [ ] chore: define colour palette & typography scale
-    * [ ] chore: setup spacing constants
-    * [ ] refactor: migrate components to theme
+    * [x] chore: define colour palette & typography scale
+    * [x] chore: setup spacing constants
+    * [x] refactor: migrate components to theme
 
 * [ ] **Home Screen**
 

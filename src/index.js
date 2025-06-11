@@ -11,7 +11,7 @@ import {
 } from 'react-router-dom';
 
 /* ─── Page components ──────────────────────────────────────────────── */
-import Welcome        from './pages/Welcome';
+import HomeScreen        from './pages/HomeScreen';
 import GettingStarted from './pages/GettingStarted';
 import AboutFantasy   from './pages/AboutFantasy';
 import OfficialRules  from './pages/OfficialRules';
@@ -38,7 +38,7 @@ function App() {
 
       <Routes>
         {/* Landing */}
-        <Route path="/" element={<Welcome />} />
+        <Route path="/" element={<HomeScreen />} />
 
         {/* Info pages */}
         <Route path="/getting-started"      element={<GettingStarted />} />

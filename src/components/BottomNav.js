@@ -24,10 +24,12 @@ export default function BottomNav() {
         <NavLink
           key={id}
           to={route}
-          end={route === '/'}                        /* exact match for Home */
+          end={false}            // instead of end={route === '/'}
+                     /* exact match for Home */
           className={({ isActive }) =>
-            'tab' + (isActive ? ' active' : '')
+              'tab' + (isActive || window.location.pathname === '/home' ? ' active' : '')
           }
+                    
         >
           {/* ── children-as-function lets us use isActive for the icon colour ── */}
           {({ isActive }) => (
