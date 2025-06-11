@@ -323,6 +323,10 @@
   background: var(--color-royal-purple);
 }
 
+/* optional text helper */
+.text-subtle { color: var(--color-lavender-300); }
+
+
   /* ------------------------------------------------------------------------
      End of file
      ------------------------------------------------------------------------ */
