@@ -66,17 +66,17 @@ use 3o
 
 * [ ] **Home Screen**
 
-  * [ ] **PR1 – Home scaffold**
+  * [x] **PR1 – Home scaffold**
 
-    * [ ] feat: add `/home` route and `<HomeScreen>` placeholder
-    * [ ] chore: safe‑area & vertical scroll
-    * [ ] test: route renders without crash
-  * [ ] **PR2 – Greeting header**
+    * [x] feat: add `/home` route and `<HomeScreen>` placeholder
+    * [x] chore: safe‑area & vertical scroll
+    * [x] test: route renders without crash
+  * [x] **PR2 – Greeting header**
 
-    * [ ] feat: `<GreetingHeader>` with username & avatar
-    * [ ] chore: fetch user profile data
-    * [ ] style: avatar circle & typography
-    * [ ] test: renders with long names
+    * [x] feat: `<GreetingHeader>` with username & avatar
+    * [x] chore: fetch user profile data
+    * [x] style: avatar circle & typography
+    * [x] test: renders with long names
   * [ ] **PR3 – Points badge**
 
     * [ ] feat: `<PointsBadge>` component ("Today's Points: …")
