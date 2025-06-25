@@ -20,6 +20,18 @@
     /* Utility */
     --progress-fill    : #6165FF;
     --color-white      : #FFFFFF;
+
+    :root {
+      /* …existing colour tokens… */
+    
+      /* ─ Spacing scale ───────────────── */
+      --space-xs: .25rem;
+      --space-sm: .5rem;
+      --space-md: .75rem;
+      --space-lg: 1rem;
+      --space-xl: 1.5rem;
+    }
+    
   }
   
   
@@ -325,6 +337,54 @@
 
 /* optional text helper */
 .text-subtle { color: var(--color-lavender-300); }
+
+/* ======================================================================
+   League Pills
+   ====================================================================== */
+   .league-pills-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+  
+  .league-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-md);
+    border: none;
+    border-radius: 9999px;
+    font-size: var(--step-0);          /* 14 px */
+    background: var(--color-lavender-100);
+    color: var(--color-royal-purple);
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  .league-pill .icon { font-size: 0.9em; }
+  
+  .league-pill.active {
+    background: var(--color-royal-purple);
+    color: var(--color-white);
+  }
+  
+  /* ======================================================================
+     Points Badge
+     ====================================================================== */
+  .points-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-md);
+    border: none;
+    border-radius: 9999px;
+    font-size: var(--step-0);
+    background: var(--color-royal-purple);
+    color: var(--color-white);
+    cursor: pointer;
+  }
+  .points-badge:disabled { cursor: default; }
+  
 
 
   /* ------------------------------------------------------------------------

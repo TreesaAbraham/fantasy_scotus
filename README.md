@@ -77,11 +77,11 @@ use 3o
     * [x] chore: fetch user profile data
     * [x] style: avatar circle & typography
     * [x] test: renders with long names
-  * [ ] **PR3 – Points badge**
+  * [x] **PR3 – Points badge**
 
-    * [ ] feat: `<PointsBadge>` component ("Today's Points: …")
-    * [ ] chore: hook to points API
-    * [ ] test: badge updates on props change
+    * [x] feat: `<PointsBadge>` component ("Today's Points: …")
+    * [x] chore: hook to points API
+    * [x] test: badge updates on props change
   * [ ] **PR4 – Leagues pills**
 
     * [ ] feat: `<LeaguePill>` component with icon & label
