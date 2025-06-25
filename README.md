@@ -82,12 +82,12 @@ use 3o
     * [x] feat: `<PointsBadge>` component ("Today's Points: …")
     * [x] chore: hook to points API
     * [x] test: badge updates on props change
-  * [ ] **PR4 – Leagues pills**
+  * [x] **PR4 – Leagues pills**
 
-    * [ ] feat: `<LeaguePill>` component with icon & label
-    * [ ] feat: horizontal wrap list of pills
-    * [ ] style: active vs inactive pill states
-    * [ ] test: tap fires `onSelectLeague`
+    * [x] feat: `<LeaguePill>` component with icon & label
+    * [x] feat: horizontal wrap list of pills
+    * [x] style: active vs inactive pill states
+    * [x] test: tap fires `onSelectLeague`
   * [ ] **PR5 – Case carousel**
 
     * [ ] feat: `<CaseCard>` reusable (illustration, title, summary, meta icons)
