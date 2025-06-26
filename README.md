@@ -88,12 +88,12 @@ use 3o
     * [x] feat: horizontal wrap list of pills
     * [x] style: active vs inactive pill states
     * [x] test: tap fires `onSelectLeague`
-  * [ ] **PR5 – Case carousel**
+  * [x] **PR5 – Case carousel**
 
-    * [ ] feat: `<CaseCard>` reusable (illustration, title, summary, meta icons)
-    * [ ] feat: horizontal scroll carousel
-    * [ ] chore: dynamic data via `/cases?leagueId=`
-    * [ ] test: card press navigates to `/cases/:id`
+    * [x] feat: `<CaseCard>` reusable (illustration, title, summary, meta icons)
+    * [x] feat: horizontal scroll carousel
+    * [x] chore: dynamic data via `/cases?leagueId=`
+    * [x] test: card press navigates to `/cases/:id`
   * [ ] **PR6 – Navigation integration**
 
     * [ ] chore: connect pills → `/league/:id` route

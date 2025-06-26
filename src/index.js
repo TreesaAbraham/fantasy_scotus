@@ -40,6 +40,9 @@ function App() {
         {/* Landing */}
         <Route path="/" element={<HomeScreen />} />
 
+        {/* Same HomeScreen, filtered by league */}
+         <Route path="/league/:leagueId" element={<HomeScreen />} />  
+
         {/* Info pages */}
         <Route path="/getting-started"      element={<GettingStarted />} />
         <Route path="/about-fantasy-scotus" element={<AboutFantasy />} />

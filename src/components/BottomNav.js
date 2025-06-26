@@ -1,49 +1,80 @@
-// src/components/BottomNav.js
+// src/pages/HomeScreen.js
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { FaHome, FaStar, FaGavel, FaPlus, FaUser } from 'react-icons/fa';
-import { colors } from '../theme';   // design-token palette
-import '../scotus.css';              // keeps global styles
+import { useNavigate, useParams } from 'react-router-dom';
+import { space } from '../theme';
 
-/**
- * Persistent bottom navigation bar (mobile-style).
- * Tabs: Home · Star · Court · Plus · Profile
- */
-export default function BottomNav() {
-  const tabs = [
-    { id: 'home',    icon: FaHome, route: '/',          label: 'Home'     },
-    { id: 'star',    icon: FaStar, route: '/favorites', label: 'Starred'  },
-    { id: 'court',   icon: FaGavel,route: '/court',     label: 'Court'    },
-    { id: 'create',  icon: FaPlus, route: '/create',    label: 'New'      },
-    { id: 'profile', icon: FaUser, route: '/profile',   label: 'Profile'  },
+import { useAuth }           from '../hooks/useAuth';
+import { useUserProfile }    from '../hooks/useUserProfile';
+import { useDailyPoints }    from '../hooks/useDailyPoints';
+import { useCasesByLeague }  from '../hooks/useCasesByLeague';
+
+import GreetingHeader  from '../components/GreetingHeader';
+import PointsBadge     from '../components/PointsBadge';
+import LeaguePillsRow  from '../components/LeaguePillsRow';
+import CaseCarousel    from '../components/CaseCarousel';
+
+import { FaBalanceScale, FaUniversity } from 'react-icons/fa';
+import '../scotus.css';
+
+export default function HomeScreen() {
+  /* ───── 1. Auth & profile ────────────────────────────────────────── */
+  const session   = useAuth();
+  const userId    = session?.user?.id;
+
+  const { profile } = useUserProfile(userId);
+  const username   = profile?.username ?? 'Friend';
+  const avatarUrl  = profile?.avatar_url;
+
+  /* ───── 2. Points for today ──────────────────────────────────────── */
+  const { points, loading: loadingPoints } = useDailyPoints(userId);
+
+  /* ───── 3. League-ID from URL & navigation helper ───────────────── */
+  const { leagueId = 'all' } = useParams();       // '' when on /
+  const navigate = useNavigate();
+
+  /* ───── 4. Case data filtered by league ─────────────────────────── */
+  const { cases } = useCasesByLeague(leagueId);
+
+  /* ───── 5. Pill config (icons, labels) ──────────────────────────── */
+  const leagues = [
+    { id: 'all',       label: 'All',        icon: <FaBalanceScale /> },
+    { id: 'lawschool', label: 'Law School', icon: <FaUniversity /> },
+    { id: 'friends',   label: 'Friends' },
   ];
 
+  const handleSelectLeague = (id) => {
+    // push either `/` or `/league/:id`
+    navigate(id === 'all' ? '/' : `/league/${id}`);
+  };
+
+  /* ───── 6. Render ───────────────────────────────────────────────── */
   return (
-    <nav className="bottom-nav">
-      {tabs.map(({ id, icon: Icon, route, label }) => (
-        <NavLink
-          key={id}
-          to={route}
-          end={false}            // instead of end={route === '/'}
-                     /* exact match for Home */
-          className={({ isActive }) =>
-              'tab' + (isActive || window.location.pathname === '/home' ? ' active' : '')
-          }
-                    
-        >
-          {/* ── children-as-function lets us use isActive for the icon colour ── */}
-          {({ isActive }) => (
-            <>
-              <Icon
-                className="tab-icon"
-                aria-hidden="true"
-                color={isActive ? colors.royalPurple : colors.lavender300}
-              />
-              <span className="tab-label">{label}</span>
-            </>
-          )}
-        </NavLink>
-      ))}
-    </nav>
+    <main
+      className="page"
+      style={{
+        padding: space.md,
+        minHeight: 'calc(100vh - 60px - var(--space-md))',
+        overflowY: 'auto',
+      }}
+    >
+      {/* Greeting */}
+      <GreetingHeader username={username} avatarUrl={avatarUrl} />
+
+      {/* Today’s Points */}
+      <PointsBadge points={points} loading={loadingPoints} />
+
+      {/* League selector pills */}
+      <LeaguePillsRow
+        leagues={leagues}
+        defaultId={leagueId}
+        onChange={handleSelectLeague}
+      />
+
+      {/* Horizontally scrollable case carousel */}
+      <CaseCarousel cases={cases} />
+
+      {/* Placeholder for future widgets */}
+      <p>Welcome back! 🚀 Build your widgets here.</p>
+    </main>
   );
 }
