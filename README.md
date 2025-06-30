@@ -64,7 +64,7 @@ use 3o
     * [x] chore: setup spacing constants
     * [x] refactor: migrate components to theme
 
-* [ ] **Home Screen**
+* [x] **Home Screen**
 
   * [x] **PR1 – Home scaffold**
 

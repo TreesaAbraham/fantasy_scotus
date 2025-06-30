@@ -1,36 +1,38 @@
 // src/components/BottomNav.js
 import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
-import { FaHome, FaStar, FaGavel, FaPlus, FaUser } from 'react-icons/fa';
-import '../scotus.css';
+import { NavLink } from 'react-router-dom';
+import {
+  FaHome,
+  FaTrophy,      // 🏆 NEW: Leaderboard icon
+  FaStar,
+  FaPlusCircle,
+  FaUser,
+} from 'react-icons/fa';
 
-/**
- * Persistent bottom navigation bar (mobile-style).
- * Tabs: Home · Star · Court* · Plus · Profile
- */
+
 export default function BottomNav() {
-  const { pathname } = useLocation();
-
-  const tabs = [
-    { id: 'home',     icon: FaHome, route: '/',         label: 'Home'     },
-    { id: 'star',     icon: FaStar, route: '/favorites',label: 'Starred'  },
-    { id: 'court',    icon: FaGavel,route: '/court',    label: 'Court'    },
-    { id: 'create',   icon: FaPlus, route: '/create',   label: 'New'      },
-    { id: 'profile',  icon: FaUser, route: '/profile',  label: 'Profile'  },
+  const navItems = [
+    { to: '/',             icon: <FaHome />,       label: 'Home',      exact: true },
+    { to: '/leaderboard',  icon: <FaTrophy />,     label: 'Rank' },    // 🆕
+    { to: '/favorites',    icon: <FaStar />,       label: 'Starred' },
+    { to: '/create',       icon: <FaPlusCircle />, label: 'Create' },
+    { to: '/profile',      icon: <FaUser />,       label: 'Profile' },
   ];
 
   return (
     <nav className="bottom-nav">
-      {tabs.map(({ id, icon: Icon, route, label }) => (
+      {navItems.map(({ to, icon, label, exact }) => (
         <NavLink
-          key={id}
-          to={route}
+          key={to}
+          to={to}
+          end={exact}                         // ensures Home only matches exact "/"
           className={({ isActive }) =>
-            'tab' + (isActive || (id === 'home' && pathname === '/') ? ' active' : '')
+            'bottom-nav__item' +
+            (isActive ? ' bottom-nav__item--active' : '')
           }
         >
-          <Icon className="tab-icon" aria-hidden="true" />
-          <span className="tab-label">{label}</span>
+          {icon}
+          <span className="bottom-nav__label">{label}</span>
         </NavLink>
       ))}
     </nav>
