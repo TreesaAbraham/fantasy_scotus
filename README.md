@@ -94,11 +94,11 @@ use 3o
     * [x] feat: horizontal scroll carousel
     * [x] chore: dynamic data via `/cases?leagueId=`
     * [x] test: card press navigates to `/cases/:id`
-  * [ ] **PR6 – Navigation integration**
+  * [x] **PR6 – Navigation integration**
 
-    * [ ] chore: connect pills → `/league/:id` route
-    * [ ] chore: bottom nav highlights Home tab
-    * [ ] test: navigation hooks work across tabs
+    * [x] chore: connect pills → `/league/:id` route
+    * [x] chore: bottom nav highlights Home tab
+    * [x] test: navigation hooks work across tabs
 
 * [ ] **Leaderboard Screen**
 
