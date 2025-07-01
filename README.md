@@ -121,12 +121,12 @@ use 3o
     * [x] feat: `<LeaderboardRow>` (rank chip, name, points, avatar)
     * [x] style: row spacing & colours
     * [x] test: row renders with long names
-  * [ ] **PR5 – List rendering**
+  * [x] **PR5 – List rendering**
 
-    * [ ] feat: fetch `/leaderboard?mode=overall|league` API
-    * [ ] feat: render FlatList of `<LeaderboardRow>`
-    * [ ] chore: wire segmented toggle to API param
-    * [ ] test: switching toggle reloads data
+    * [x] feat: fetch `/leaderboard?mode=overall|league` API
+    * [x] feat: render FlatList of `<LeaderboardRow>`
+    * [x] chore: wire segmented toggle to API param
+    * [x] test: switching toggle reloads data
   * [ ] **PR6 – Empty & Loading states**
 
     * [ ] feat: `<EmptyState>` component (illustration + hint text)

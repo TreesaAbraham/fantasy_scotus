@@ -406,6 +406,34 @@ Segmented Toggle
   font-weight: 600;
 }
 
+/*==================== EmptyState.css ====================*/
+.empty-state {
+  text-align: center;
+  padding: 48px 16px;
+  color: var(--color-text-muted, #6b7280);
+}
+.empty-state__img  { width: 160px; margin-bottom: 16px; }
+.empty-state__hint { margin: 0;   font-size: 0.9rem; }
+
+/*================= Skeleton helpers ===========================*/
+@keyframes pulse { 0%{opacity:.6} 50%{opacity:1} 100%{opacity:.6} }
+.skeleton-box,
+.skeleton-circle {
+  background: var(--color-border, #e5e7eb);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+.skeleton-circle { border-radius: 9999px; }
+
+/* ==================================LeaderboardSkeletonRow.css ========================*/
+.lb-skeleton-row   { display: flex; align-items: center; gap: 8px; padding: 8px 0; }
+.lb-skeleton-rank  { width: 28px; height: 28px; border-radius: 50%; }
+.lb-skeleton-avatar{ width: 40px; height: 40px; border-radius: 50%; }
+.lb-skeleton-name  { flex: 1 1 auto; height: 14px; }
+.lb-skeleton-points{ width: 56px; height: 14px; }
+/* ======================================================================
+   End of Leaderboard styles
+   ====================================================================== */
+
 /* ======================================================================
    End of SCOTUS.CSS
    ====================================================================== */  
