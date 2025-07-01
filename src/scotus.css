@@ -359,6 +359,54 @@ Segmented Toggle
 }
 
 /* ======================================================================
+   Leaderboard styles
+   ====================================================================== */
+
+
+.lb-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm, 8px);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-border, #e5e7eb);
+  font-size: 0.9rem;
+}
+
+/* rank chip */
+.lb-row__rank {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--color-text-muted, #9ca3af);
+  color: #fff;
+}
+.lb-row__rank.gold   { background: #d97706; } /* amber-600 */
+.lb-row__rank.silver { background: #6b7280; } /* zinc-600 */
+.lb-row__rank.bronze { background: #b45309; } /* orange-700 */
+
+.lb-row__avatar {
+  border-radius: 50%;
+  flex: 0 0 40px;
+}
+
+.lb-row__name {
+  flex: 1 1 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lb-row__points {
+  flex: 0 0 auto;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+/* ======================================================================
    End of SCOTUS.CSS
    ====================================================================== */  
 

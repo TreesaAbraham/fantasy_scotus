@@ -16,7 +16,7 @@ export function useUserProfile(userId) {
 
     async function fetchProfile() {
       const { data, error } = await supabase
-        .from('profiles')
+        .from('user')
         .select('username, avatar_url')
         .eq('id', userId)
         .single();

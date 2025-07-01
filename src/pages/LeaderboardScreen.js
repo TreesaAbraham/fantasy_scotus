@@ -2,59 +2,80 @@
 import React, { useState } from 'react';
 import TopNav from '../components/TopNav';
 import SegmentedToggle from '../components/SegmentedToggle';
+import LeaderboardRow from '../components/LeaderboardRow';
+import { useUserLeaderboard } from '../hooks/useUserLeaderboard';
+import { useLeagueLeaderboard } from '../hooks/useLeagueLeaderboard';
 import { space } from '../theme';
 
 /**
- * Leaderboard page showing either the global user leaderboard or the top
- * leagues, selected via a segmented toggle. Favourite state is local until
- * we wire this to real data.
+ * Renders either the global user leaderboard or the leagues leaderboard based
+ * on a segmented toggle. Pulls live data from Supabase via custom hooks.
  */
 export default function LeaderboardScreen() {
-  /* ─── Local UI state ─────────────────────────────────────────────── */
-  const [favourite, setFavourite] = useState(false);
-  const [view, setView] = useState('users'); // 'users' | 'leagues'
+  const [view, setView] = useState('users');
 
-  /* ─── Segmented‑toggle config ───────────────────────────────────── */
+  // ─── Live hooks ──────────────────────────────────────────────────
+  const {
+    rows: userRows,
+    loading: loadingUsers,
+    refetch: refetchUsers,
+  } = useUserLeaderboard();
+
+  const {
+    rows: leagueRows,
+    loading: loadingLeagues,
+    refetch: refetchLeagues,
+  } = useLeagueLeaderboard();
+
+  const handleSelectView = (id) => {
+    setView(id);
+    // Refresh the newly visible list in case it’s stale
+    if (id === 'users' && typeof refetchUsers === 'function') refetchUsers();
+    if (id === 'leagues' && typeof refetchLeagues === 'function') refetchLeagues();
+  };
+
   const segments = [
-    { id: 'users',   label: 'Leaderboard' },
-    { id: 'leagues', label: 'Leagues', badge: 12 }, // placeholder count
+    { id: 'users', label: 'Leaderboard' },
+    { id: 'leagues', label: 'Leagues' },
   ];
 
-  /* ─── Render ────────────────────────────────────────────────────── */
+  const rows = view === 'users' ? userRows : leagueRows;
+  const loading = view === 'users' ? loadingUsers : loadingLeagues;
+
   return (
     <>
-      {/* Page header */}
-      <TopNav
-        title="Leaderboard"
-        isFavourite={favourite}
-        onToggleFavourite={() => setFavourite(!favourite)}
-      />
+      <TopNav title="Leaderboard" showBack={true} />
 
-      {/* Scrollable page body */}
+      {/* Segmented control */}
+      <div style={{ padding: `${space.sm} ${space.md}` }}>
+        <SegmentedToggle
+          segments={segments}
+          selectedId={view}
+          onSelect={handleSelectView}
+        />
+      </div>
+
+      {/* List container */}
       <main
         className="page"
         style={{
-          padding: space.md,
+          padding: `${space.md} ${space.md} var(--space-lg)`,
           minHeight: 'calc(100vh - 60px - var(--space-md))',
           overflowY: 'auto',
         }}
       >
-        {/* Segmented switch between user & league leaderboards */}
-        <SegmentedToggle
-          segments={segments}
-          selectedId={view}
-          onSelect={setView}
-        />
-
-        {/* Placeholder content blocks */}
-        {view === 'users' ? (
-          <section style={{ marginTop: space.lg }}>
-            <p>🏆 User leaderboard coming soon…</p>
-          </section>
+        {loading ? (
+          <p>Loading…</p>
+        ) : rows.length === 0 ? (
+          <p>No data yet.</p>
         ) : (
-          <section style={{ marginTop: space.lg }}>
-            <p>🏅 League leaderboard coming soon…</p>
-          </section>
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+            {rows.map((r) => (
+              <li key={`${view}-${r.rank}`}>
+                <LeaderboardRow {...r} />
+              </li>
+            ))}
+          </ul>
         )}
       </main>
     </>

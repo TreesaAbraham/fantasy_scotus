@@ -20,7 +20,7 @@ export function useDailyPoints(userId) {
 
     async function fetchPoints() {
       const { data, error } = await supabase
-        .from('daily_points')
+        .from('user')
         .select('points')
         .eq('user_id', userId)
         .eq('date', new Date().toISOString().slice(0, 10)) // “YYYY-MM-DD”
