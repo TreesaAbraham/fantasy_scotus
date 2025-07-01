@@ -107,15 +107,15 @@ use 3o
     * [x] feat: add `/leaderboard` route and `<LeaderboardScreen>` placeholder
     * [x] chore: safe‑area & vertical scroll
     * [x] test: route renders without crash
-  * [ ] **PR2 – Top Navigation Bar**
+  * [x] **PR2 – Top Navigation Bar**
 
-    * [ ] feat: reuse `<TopNav>` with back arrow & favourite button
-    * [ ] style: centre title alignment
-    * [ ] test: snapshot with favourite on/off
-  * [ ] **PR3 – Segmented toggle**
+    * [x] feat: reuse `<TopNav>` with back arrow & favourite button
+    * [x] style: centre title alignment
+    * [x] test: snapshot with favourite on/off
+  * [x] **PR3 – Segmented toggle**
 
-    * [ ] feat: `<SegmentedToggle>` (Leaderboard vs Leagues Leaderboard) with badge support
-    * [ ] test: toggle fires `onSelect`
+    * [x] feat: `<SegmentedToggle>` (Leaderboard vs Leagues Leaderboard) with badge support
+    * [x] test: toggle fires `onSelect`
   * [ ] **PR4 – Leaderboard row**
 
     * [ ] feat: `<LeaderboardRow>` (rank chip, name, points, avatar)

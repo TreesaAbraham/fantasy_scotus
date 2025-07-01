@@ -270,7 +270,9 @@ tbody tr:hover{background:var(--color-slate-200)}
   .case-card__summary{
     font-size:.85rem;line-height:1.35;color:var(--color-slate-800);
   }
-/* ======================================================================
+/* =========================
+Top navigation bar
+============================================= */
 
 .top-nav {
   height: 60px;
@@ -285,7 +287,7 @@ tbody tr:hover{background:var(--color-slate-200)}
   z-index: 100;
 }
 
-/* Invisible placeholder keeps title centred when one side is absent */
+ Invisible placeholder keeps title centred when one side is absent 
 .top-nav__spacer {
   width: 24px;   /* roughly icon size */
   height: 24px;
@@ -311,6 +313,51 @@ tbody tr:hover{background:var(--color-slate-200)}
   font-weight: 600;
   line-height: 1;
 }
+
+/* ================================
+Segmented Toggle
+====================================== */
+.segmented {
+  display: inline-flex;
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.segmented__btn {
+  position: relative;
+  padding: 6px 14px;
+  background: none;
+  border: none;
+  font-size: 0.875rem;
+  cursor: pointer;
+  color: var(--color-text-muted, #6b7280);
+  transition: background 0.15s;
+}
+
+.segmented__btn--active {
+  background: var(--color-primary, #4f46e5);
+  color: #fff;
+}
+
+.segmented__btn:not(.segmented__btn--active):hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.segmented__badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 0 6px;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  font-size: 0.7rem;
+  line-height: 18px;
+  text-align: center;
+  background: var(--color-badge-bg, #ef4444);
+  color: #fff;
+}
+
 /* ======================================================================
    End of SCOTUS.CSS
    ====================================================================== */  
