@@ -2,6 +2,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import '../scotus.css';
+
 import TopNav        from '../components/TopNav';
 import PillTabBar    from '../components/PillTabBar';
 import DashboardCard from '../components/DashboardCard';

@@ -116,11 +116,11 @@ use 3o
 
     * [x] feat: `<SegmentedToggle>` (Leaderboard vs Leagues Leaderboard) with badge support
     * [x] test: toggle fires `onSelect`
-  * [ ] **PR4 – Leaderboard row**
+  * [x] **PR4 – Leaderboard row**
 
-    * [ ] feat: `<LeaderboardRow>` (rank chip, name, points, avatar)
-    * [ ] style: row spacing & colours
-    * [ ] test: row renders with long names
+    * [x] feat: `<LeaderboardRow>` (rank chip, name, points, avatar)
+    * [x] style: row spacing & colours
+    * [x] test: row renders with long names
   * [ ] **PR5 – List rendering**
 
     * [ ] feat: fetch `/leaderboard?mode=overall|league` API

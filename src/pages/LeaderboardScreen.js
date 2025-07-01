@@ -3,81 +3,65 @@ import React, { useState } from 'react';
 import TopNav from '../components/TopNav';
 import SegmentedToggle from '../components/SegmentedToggle';
 import LeaderboardRow from '../components/LeaderboardRow';
-import { useUserLeaderboard } from '../hooks/useUserLeaderboard';
-import { useLeagueLeaderboard } from '../hooks/useLeagueLeaderboard';
+import { useLeaderboard } from '../hooks/useLeaderboard';
 import { space } from '../theme';
+import '../scotus.css';
 
-/**
- * Renders either the global user leaderboard or the leagues leaderboard based
- * on a segmented toggle. Pulls live data from Supabase via custom hooks.
- */
+// Toggle options
+const segments = [
+  { id: 'overall', label: 'Leaderboard' },
+  { id: 'league',  label: 'Leagues' },
+];
+
 export default function LeaderboardScreen() {
-  const [view, setView] = useState('users');
-
-  // ─── Live hooks ──────────────────────────────────────────────────
-  const {
-    rows: userRows,
-    loading: loadingUsers,
-    refetch: refetchUsers,
-  } = useUserLeaderboard();
-
-  const {
-    rows: leagueRows,
-    loading: loadingLeagues,
-    refetch: refetchLeagues,
-  } = useLeagueLeaderboard();
-
-  const handleSelectView = (id) => {
-    setView(id);
-    // Refresh the newly visible list in case it’s stale
-    if (id === 'users' && typeof refetchUsers === 'function') refetchUsers();
-    if (id === 'leagues' && typeof refetchLeagues === 'function') refetchLeagues();
-  };
-
-  const segments = [
-    { id: 'users', label: 'Leaderboard' },
-    { id: 'leagues', label: 'Leagues' },
-  ];
-
-  const rows = view === 'users' ? userRows : leagueRows;
-  const loading = view === 'users' ? loadingUsers : loadingLeagues;
+  const [mode, setMode] = useState('overall');           // overall | league
+  const { rows, loading, error, refetch } = useLeaderboard(mode);
 
   return (
-    <>
-      <TopNav title="Leaderboard" showBack={true} />
+    <main
+      className="page"
+      style={{
+        padding: space.md,
+        minHeight: 'calc(100vh - 60px - var(--space-md))',
+        overflowY: 'auto',
+      }}
+    >
+      {/* Sticky header */}
+      <TopNav title="Leaderboard" showBack />
 
-      {/* Segmented control */}
-      <div style={{ padding: `${space.sm} ${space.md}` }}>
+      {/* Segmented toggle */}
+      <div style={{ marginBottom: space.md }}>
         <SegmentedToggle
           segments={segments}
-          selectedId={view}
-          onSelect={handleSelectView}
+          selectedId={mode}
+          onSelect={setMode}
         />
       </div>
 
-      {/* List container */}
-      <main
-        className="page"
-        style={{
-          padding: `${space.md} ${space.md} var(--space-lg)`,
-          minHeight: 'calc(100vh - 60px - var(--space-md))',
-          overflowY: 'auto',
-        }}
-      >
-        {loading ? (
-          <p>Loading…</p>
-        ) : rows.length === 0 ? (
-          <p>No data yet.</p>
-        ) : (
-          <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-            {rows.map((r) => (
-              <li key={`${view}-${r.rank}`}>
-                <LeaderboardRow {...r} />
-              </li>
-            ))}
-          </ul>
-        )}
-      </main>
-    </>
+      {/* States */}
+      {loading && <p style={{ textAlign: 'center' }}>Loading…</p>}
+      {error && (
+        <p style={{ color: 'red', textAlign: 'center' }}>
+          {error.message}{' '}
+          <button onClick={refetch} style={{ marginLeft: 8 }}>
+            Retry
+          </button>
+        </p>
+      )}
+      {!loading && !error && rows.length === 0 && (
+        <p style={{ textAlign: 'center' }}>No data yet.</p>
+      )}
+
+      {/* Leaderboard list */}
+      {!loading && !error && rows.length > 0 && (
+        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+          {rows.map((r) => (
+            <li key={`${mode}-${r.rank}`}>
+              <LeaderboardRow {...r} />
+            </li>
+          ))}
+        </ul>
+      )}
+    </main>
   );
 }
