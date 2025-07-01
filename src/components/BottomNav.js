@@ -3,20 +3,23 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   FaHome,
-  FaTrophy,      // 🏆 NEW: Leaderboard icon
+  FaTrophy,
+  FaChartBar,     // 📊 NEW: dashboard icon
   FaStar,
   FaPlusCircle,
   FaUser,
 } from 'react-icons/fa';
+import '../scotus.css'; // Import your styles
 
 
 export default function BottomNav() {
   const navItems = [
-    { to: '/',             icon: <FaHome />,       label: 'Home',      exact: true },
-    { to: '/leaderboard',  icon: <FaTrophy />,     label: 'Rank' },    // 🆕
-    { to: '/favorites',    icon: <FaStar />,       label: 'Starred' },
-    { to: '/create',       icon: <FaPlusCircle />, label: 'Create' },
-    { to: '/profile',      icon: <FaUser />,       label: 'Profile' },
+    { to: '/',            icon: <FaHome />,       label: 'Home',   exact: true },
+    { to: '/leaderboard', icon: <FaTrophy />,     label: 'Rank' },
+    { to: '/court',       icon: <FaChartBar />,   label: 'Court' },   // 🆕 Dashboard
+    { to: '/favorites',   icon: <FaStar />,       label: 'Starred' },
+    { to: '/create',      icon: <FaPlusCircle />, label: 'Create' },
+    { to: '/profile',     icon: <FaUser />,       label: 'Profile' },
   ];
 
   return (
@@ -25,7 +28,7 @@ export default function BottomNav() {
         <NavLink
           key={to}
           to={to}
-          end={exact}                         // ensures Home only matches exact "/"
+          end={exact}
           className={({ isActive }) =>
             'bottom-nav__item' +
             (isActive ? ' bottom-nav__item--active' : '')

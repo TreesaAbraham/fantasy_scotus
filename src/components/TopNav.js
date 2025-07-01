@@ -1,20 +1,54 @@
-// src/components/TopNav.js
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FaArrowLeft, FaStar, FaRegStar } from 'react-icons/fa';
+import '../scotus.css'; // Import your styles
 
 /**
- * Page-level header with ← back button, centered title, and 🔍 search icon.
+ * Re-usable page header
  *
- * Props:
- *  - title      (string) : heading text
- *  - onBack     (fn)     : called when back arrow is pressed
- *  - onSearch   (fn)     : called when search icon is pressed
+ * @param {string}  title             – centred text
+ * @param {boolean} isFavourite       – current starred state
+ * @param {func}    onToggleFavourite – callback for star button
+ * @param {boolean} showBack          – hide arrow on root pages
  */
-export default function TopNav({ title, onBack, onSearch }) {
+export default function TopNav({
+  title,
+  isFavourite = false,
+  onToggleFavourite,
+  showBack = true,
+}) {
+  const navigate = useNavigate();
+
   return (
     <header className="top-nav">
-      <button className="back"   onClick={onBack}>←</button>
-      <h1 className="title">{title}</h1>
-      <button className="search" onClick={onSearch}>🔍</button>
+      {/* Back arrow */}
+      {showBack ? (
+        <button
+          aria-label="Go back"
+          className="top-nav__icon-btn"
+          onClick={() => navigate(-1)}
+        >
+          <FaArrowLeft />
+        </button>
+      ) : (
+        <span className="top-nav__spacer" />
+      )}
+
+      {/* Centred title (flex-trick) */}
+      <h1 className="top-nav__title">{title}</h1>
+
+      {/* Favourite toggle */}
+      {onToggleFavourite ? (
+        <button
+          aria-label={isFavourite ? 'Remove favourite' : 'Add favourite'}
+          className="top-nav__icon-btn"
+          onClick={onToggleFavourite}
+        >
+          {isFavourite ? <FaStar /> : <FaRegStar />}
+        </button>
+      ) : (
+        <span className="top-nav__spacer" />
+      )}
     </header>
   );
 }

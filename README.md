@@ -102,11 +102,11 @@ use 3o
 
 * [ ] **Leaderboard Screen**
 
-  * [ ] **PR1 – Leaderboard scaffold**
+  * [x] **PR1 – Leaderboard scaffold**
 
-    * [ ] feat: add `/leaderboard` route and `<LeaderboardScreen>` placeholder
-    * [ ] chore: safe‑area & vertical scroll
-    * [ ] test: route renders without crash
+    * [x] feat: add `/leaderboard` route and `<LeaderboardScreen>` placeholder
+    * [x] chore: safe‑area & vertical scroll
+    * [x] test: route renders without crash
   * [ ] **PR2 – Top Navigation Bar**
 
     * [ ] feat: reuse `<TopNav>` with back arrow & favourite button

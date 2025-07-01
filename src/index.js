@@ -22,7 +22,9 @@ import Predictions     from "./pages/Predictions";
 import Signup          from "./pages/Signup";
 import Login           from "./pages/Login";
 import CourtDashboard  from "./pages/CourtDashboard";
+import LeaderboardScreen from './pages/LeaderboardScreen';
 import MainApp         from "./MainApp";
+
 
 /* ─── Shared UI & hooks ───────────────────────────────────────────── */
 import Navbar    from "./components/Navbar";
@@ -66,6 +68,7 @@ function App() {
           <Route path="cases"       element={<CasesList />} />
           <Route path="predictions" element={<Predictions />} />
           <Route path="court"       element={<CourtDashboard />} />
+          <Route path="leaderboard" element={<LeaderboardScreen />} />
 
           {/* Bottom-nav placeholders */}
           <Route path="favorites" element={<p style={{ padding: 20 }}>⭐ Starred screen — TBD</p>} />
