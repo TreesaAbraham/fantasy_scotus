@@ -24,6 +24,8 @@ import Login           from "./pages/Login";
 import CourtDashboard  from "./pages/CourtDashboard";
 import LeaderboardScreen from './pages/LeaderboardScreen';
 import MainApp         from "./MainApp";
+import LeaguesScreen from "./pages/LeaguesScreen";
+
 
 
 /* ─── Shared UI & hooks ───────────────────────────────────────────── */
@@ -64,6 +66,7 @@ function App() {
           <Route path="official-rules"       element={<OfficialRules />} />
 
           {/* Core lists & dashboards */}
+          <Route path="leagues"        element={<LeaguesScreen />} />
           <Route path="leagues"     element={<LeagueList />} />
           <Route path="cases"       element={<CasesList />} />
           <Route path="predictions" element={<Predictions />} />

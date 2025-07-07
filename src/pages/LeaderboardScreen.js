@@ -21,7 +21,7 @@ const segments = [
  */
 export default function LeaderboardScreen() {
   const [mode, setMode] = useState('overall');                // 'overall' | 'league'
-  const { rows, loading, error, refetch } = useLeaderboard(mode);
+  const { rows, loading, error } = useLeaderboard(mode);
 
   return (
     <main

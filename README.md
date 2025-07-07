@@ -100,7 +100,7 @@ use 3o
     * [x] chore: bottom nav highlights Home tab
     * [x] test: navigation hooks work across tabs
 
-* [ ] **Leaderboard Screen**
+* [x] **Leaderboard Screen**
 
   * [x] **PR1 – Leaderboard scaffold**
 
@@ -129,10 +129,10 @@ use 3o
     * [x] test: switching toggle reloads data
   * [ ] **PR6 – Empty & Loading states**
 
-    * [ ] feat: `<EmptyState>` component (illustration + hint text)
-    * [ ] feat: show empty state when selected mode returns \[]
-    * [ ] chore: add skeleton loaders for initial fetch
-    * [ ] test: empty state appears for empty dataset
+    * [x] feat: `<EmptyState>` component (illustration + hint text)
+    * [x] feat: show empty state when selected mode returns \[]
+    * [x] chore: add skeleton loaders for initial fetch
+    * [x] test: empty state appears for empty dataset
 
 * [ ] **Leagues Screen**
 
@@ -218,3 +218,91 @@ use 3o
     * [ ] chore: safe‑area & vertical scroll
     * [ ] test: route renders without crash
   * [ ] \*\*
+
+
+# Fantasy SCOTUS: Build Signup and login
+
+SCOTUS Case Feed — Feature‑Driven Roadmap
+
+Mission: Deliver a live SCOTUS docket to Fantasy‑SCOTUS via tightly scoped features, each split into pull requests (PRs) and granular commits.
+
+1. Project Setup
+
+PR feat/init
+
+Commits
+
+chore: scaffold poetry project
+
+test: add pytest baseline
+
+feat: implement minimal Oyez client fetch_term()
+
+2. Data Models & Database
+
+PR feat/db
+
+Commits
+
+chore: create supabase schema — cases + sync_state tables
+
+feat: add SQLAlchemy models for cases & sync_state
+
+chore: generate initial alembic migration
+
+3. ETL Pipeline
+
+PR feat/etl-sync
+
+Commits
+
+feat: add sync_cases.py to fetch & parse Oyez JSON
+
+refactor: extract JSON→model parser util
+
+perf: bulk‑upsert cases via SQLAlchemy core
+
+test: unit tests for sync_cases and parser
+
+4. Public REST API
+
+PR feat/rest-api
+
+Commits
+
+feat: scaffold FastAPI app
+
+feat: GET /cases/latest with pagination & term filter
+
+docs: auto‑generate Swagger docs
+
+test: endpoint integration tests
+
+5. Scheduler & Ops
+
+PR feat/scheduler
+
+Commits
+
+ci: add GitHub Actions cron to run sync_cases daily 08:00 ET
+
+feat: Slack webhook alert on sync failure
+
+docs: update ops runbook section
+
+6. Front‑End Integration
+
+PR feat/frontend
+
+Commits
+
+feat: create React hook useLatestCases()
+
+feat: decisions card component
+
+chore: add feature flag scotus_live_feed
+
+test: component snapshot tests
+
+Next Steps: Tick off commits locally, push to branch, open PR, request review. Merge in order (1→6) for smooth rollout.
+
