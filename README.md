@@ -146,10 +146,10 @@ use 3o
     * [x] feat: reuse `<TopNav>` with back arrow & favourite button
     * [x] style: centre title alignment ("Leagues")
     * [x] test: snapshot with favourite on/off
-  * [ ] **PR3 – Segmented toggle**
+  * [s] **PR3 – Segmented toggle**
 
-    * [ ] feat: `<SegmentedToggle>` (All Leagues vs Law School Leagues) with badge support
-    * [ ] test: toggle fires `onSelect`
+    * [x] feat: `<SegmentedToggle>` (All Leagues vs Law School Leagues) with badge support
+    * [x] test: toggle fires `onSelect`
   * [ ] **PR4 – League row**
 
     * [ ] feat: `<LeagueRow>` (rank chip, league name, total points, avatar/icon)
