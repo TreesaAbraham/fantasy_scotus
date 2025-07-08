@@ -136,16 +136,16 @@ use 3o
 
 * [ ] **Leagues Screen**
 
-  * [ ] **PR1 – Leagues scaffold**
+  * [x] **PR1 – Leagues scaffold**
 
-    * [ ] feat: add `/leagues` route and `<LeaguesScreen>` placeholder
-    * [ ] chore: safe‑area & vertical scroll
-    * [ ] test: route renders without crash
-  * [ ] **PR2 – Top Navigation Bar**
+    * [x] feat: add `/leagues` route and `<LeaguesScreen>` placeholder
+    * [x] chore: safe‑area & vertical scroll
+    * [x] test: route renders without crash
+  * [x] **PR2 – Top Navigation Bar**
 
-    * [ ] feat: reuse `<TopNav>` with back arrow & favourite button
-    * [ ] style: centre title alignment ("Leagues")
-    * [ ] test: snapshot with favourite on/off
+    * [x] feat: reuse `<TopNav>` with back arrow & favourite button
+    * [x] style: centre title alignment ("Leagues")
+    * [x] test: snapshot with favourite on/off
   * [ ] **PR3 – Segmented toggle**
 
     * [ ] feat: `<SegmentedToggle>` (All Leagues vs Law School Leagues) with badge support
