@@ -150,17 +150,17 @@ use 3o
 
     * [x] feat: `<SegmentedToggle>` (All Leagues vs Law School Leagues) with badge support
     * [x] test: toggle fires `onSelect`
-  * [ ] **PR4 – League row**
+  * [x] **PR4 – League row**
 
-    * [ ] feat: `<LeagueRow>` (rank chip, league name, total points, avatar/icon)
-    * [ ] style: row spacing & colours
-    * [ ] test: row renders with long league names
-  * [ ] **PR5 – List rendering**
+    * [x] feat: `<LeagueRow>` (rank chip, league name, total points, avatar/icon)
+    * [x] style: row spacing & colours
+    * [x] test: row renders with long league names
+  * [x] **PR5 – List rendering**
 
-    * [ ] feat: fetch `/leagues?type=all|law-school` API
-    * [ ] feat: render FlatList of `<LeagueRow>`
-    * [ ] chore: wire segmented toggle to API param
-    * [ ] test: switching toggle reloads data
+    * [x] feat: fetch `/leagues?type=all|law-school` API
+    * [x] feat: render FlatList of `<LeagueRow>`
+    * [x] chore: wire segmented toggle to API param
+    * [x] test: switching toggle reloads data
   * [ ] **PR6 – Empty & Loading states**
 
     * [ ] feat: show `<EmptyState>` when dataset empty
