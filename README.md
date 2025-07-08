@@ -134,7 +134,7 @@ use 3o
     * [x] chore: add skeleton loaders for initial fetch
     * [x] test: empty state appears for empty dataset
 
-* [ ] **Leagues Screen**
+* [x] **Leagues Screen**
 
   * [x] **PR1 – Leagues scaffold**
 
@@ -161,11 +161,11 @@ use 3o
     * [x] feat: render FlatList of `<LeagueRow>`
     * [x] chore: wire segmented toggle to API param
     * [x] test: switching toggle reloads data
-  * [ ] **PR6 – Empty & Loading states**
+  * [x] **PR6 – Empty & Loading states**
 
-    * [ ] feat: show `<EmptyState>` when dataset empty
-    * [ ] chore: add skeleton loaders during fetch
-    * [ ] test: empty state visible on no results
+    * [x] feat: show `<EmptyState>` when dataset empty
+    * [x] chore: add skeleton loaders during fetch
+    * [x] test: empty state visible on no results
 
 * [ ] **Cases List Screen**
 
