@@ -488,6 +488,41 @@ Segmented Toggle
 .lg-skeleton-name   { flex:1 1 auto; height:14px; }
 .lg-skeleton-points { width:56px; height:14px; }
 
+  /* =========================================
+  Search Bar
+   =========================================*/
+   .searchbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #f3f4f6;     /* tailwind gray-100 vibe */
+    border-radius: 9999px;   /* pill */
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .searchbar .icon {
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+  
+  .searchbar .input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    margin-left: 0.5rem;
+    font-size: 0.95rem;
+  }
+  
+  .searchbar .input::placeholder {
+    color: #9ca3af;          /* gray-400 */
+  }
+  
+  .searchbar:focus-within {
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4); /* blue focus ring */
+  }
+  
+
 /* ======================================================================
    End of SCOTUS.CSS
    ====================================================================== */  

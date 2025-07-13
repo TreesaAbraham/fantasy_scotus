@@ -1,11 +1,13 @@
 // src/pages/CasesScreen.js
-import React from "react";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import TopNav from "../components/TopNav";
+import SearchBar from "../components/SearchBar";
 import '../scotus.css';
 
 export default function CasesScreen() {
     const navigate = useNavigate();
+    const [searchTerm, setSearchTerm] = useState("");
     
     return (
         <>
@@ -20,6 +22,13 @@ export default function CasesScreen() {
               console.log("Toggle favourite");
             }}
           />
+
+        <div style={{ padding: "1rem" }}>
+            <SearchBar
+                    value={searchTerm}
+                    onSearch={(term) => setSearchTerm(term)}
+             />
+         </div>
     
           <section style={{ padding: "1rem" }}>
             <p>Cases coming soon…</p>

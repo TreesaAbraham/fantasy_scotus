@@ -169,21 +169,21 @@ use 3o
 
 * [ ] **Cases List Screen**
 
-  * [ ] **PR1 – Cases scaffold**
+  * [x] **PR1 – Cases scaffold**
 
-    * [ ] feat: add `/cases` route and `<CasesScreen>` placeholder
-    * [ ] chore: safe‑area & vertical scroll
-    * [ ] test: route renders without crash
-  * [ ] **PR2 – Top Navigation Bar**
+    * [x] feat: add `/cases` route and `<CasesScreen>` placeholder
+    * [x] chore: safe‑area & vertical scroll
+    * [x] test: route renders without crash
+  * [x] **PR2 – Top Navigation Bar**
 
-    * [ ] feat: reuse `<TopNav>` with back arrow & favourite button
-    * [ ] style: centre title alignment ("Case List")
-    * [ ] test: snapshot with favourite on/off
-  * [ ] **PR3 – Search Bar**
+    * [x] feat: reuse `<TopNav>` with back arrow & favourite button
+    * [x] style: centre title alignment ("Case List")
+    * [x] test: snapshot with favourite on/off
+  * [x] **PR3 – Search Bar**
 
-    * [ ] feat: `<SearchBar>` component with leading icon & rounded pills
-    * [ ] chore: debounce search input
-    * [ ] test: input change calls `onSearch`
+    * [x] feat: `<SearchBar>` component with leading icon & rounded pills
+    * [x] chore: debounce search input
+    * [x] test: input change calls `onSearch`
   * [ ] **PR4 – Segmented toggle**
 
     * [ ] feat: `<SegmentedToggle>` (Upcoming vs All Cases) with badge
