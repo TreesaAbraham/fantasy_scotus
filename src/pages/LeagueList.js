@@ -1,7 +1,7 @@
 // src/LeagueList.js
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
-
+import '../scotus.css';
 
 export default function LeagueList() {
   const [leagues, setLeagues] = useState([]);

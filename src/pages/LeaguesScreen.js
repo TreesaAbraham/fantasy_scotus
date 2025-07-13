@@ -24,8 +24,8 @@ export default function LeaguesScreen() {
 
   /* toggle config (badge counts hard-coded until API returns them) */
   const segments = [
-    { id: 'all', label: 'All Leagues',     badge: 42 },
-    { id: 'law', label: 'Law-School Only', badge: 8  },
+    { id: 'all', label: 'All Leagues',     badge: 0 },
+    { id: 'law', label: 'Law-School Only', badge: 0 },
   ];
 
   /* fetch data from Supabase */

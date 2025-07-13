@@ -17,7 +17,6 @@ import GettingStarted  from "./pages/GettingStarted";
 import AboutFantasy    from "./pages/AboutFantasy";
 import OfficialRules   from "./pages/OfficialRules";
 import LeagueList      from "./pages/LeagueList";
-import CasesList       from "./pages/CaseList";
 import Predictions     from "./pages/Predictions";
 import Signup          from "./pages/Signup";
 import Login           from "./pages/Login";
@@ -25,6 +24,8 @@ import CourtDashboard  from "./pages/CourtDashboard";
 import LeaderboardScreen from './pages/LeaderboardScreen';
 import MainApp         from "./MainApp";
 import LeaguesScreen from "./pages/LeaguesScreen";
+import CasesScreen from "./pages/CasesScreen";
+
 
 
 
@@ -68,7 +69,7 @@ function App() {
           {/* Core lists & dashboards */}
           <Route path="leagues"        element={<LeaguesScreen />} />
           <Route path="leagues"     element={<LeagueList />} />
-          <Route path="cases"       element={<CasesList />} />
+          <Route path="cases"       element={<CasesScreen />} />
           <Route path="predictions" element={<Predictions />} />
           <Route path="court"       element={<CourtDashboard />} />
           <Route path="leaderboard" element={<LeaderboardScreen />} />
