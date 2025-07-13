@@ -274,7 +274,7 @@ tbody tr:hover{background:var(--color-slate-200)}
 Top navigation bar
 ============================================= */
 
-.top-nav {
+.topnav {
   height: 60px;
   padding: 0 var(--space-md, 16px);
   display: flex;

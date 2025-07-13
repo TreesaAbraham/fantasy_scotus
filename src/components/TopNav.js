@@ -1,54 +1,52 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FaArrowLeft, FaStar, FaRegStar } from 'react-icons/fa';
-import '../scotus.css'; // Import your styles
+import React from "react";
+import { FiArrowLeft, FiStar, FiStar as FiStarFilled } from "react-icons/fi"; // outline star, you can swap for Solid if you prefer
+import "../scotus.css"; // optional separate stylesheet
 
-/**
- * Re-usable page header
- *
- * @param {string}  title             – centred text
- * @param {boolean} isFavourite       – current starred state
- * @param {func}    onToggleFavourite – callback for star button
- * @param {boolean} showBack          – hide arrow on root pages
- */
 export default function TopNav({
   title,
-  isFavourite = false,
+  showBack = false,
+  showFavourite = false,
+  favourite = false,
+  onBack,
   onToggleFavourite,
-  showBack = true,
 }) {
-  const navigate = useNavigate();
-
   return (
-    <header className="top-nav">
-      {/* Back arrow */}
-      {showBack ? (
-        <button
-          aria-label="Go back"
-          className="top-nav__icon-btn"
-          onClick={() => navigate(-1)}
-        >
-          <FaArrowLeft />
-        </button>
-      ) : (
-        <span className="top-nav__spacer" />
-      )}
+    <nav className="topnav">
+      {/* Left slot – back arrow */}
+      <div className="slot">
+        {showBack && (
+          <button
+            aria-label="Go back"
+            className="icon-btn"
+            onClick={onBack}
+            type="button"
+          >
+            <FiArrowLeft size={20} />
+          </button>
+        )}
+      </div>
 
-      {/* Centred title (flex-trick) */}
-      <h1 className="top-nav__title">{title}</h1>
+      {/* Title */}
+      <h1 className="title">{title}</h1>
 
-      {/* Favourite toggle */}
-      {onToggleFavourite ? (
-        <button
-          aria-label={isFavourite ? 'Remove favourite' : 'Add favourite'}
-          className="top-nav__icon-btn"
-          onClick={onToggleFavourite}
-        >
-          {isFavourite ? <FaStar /> : <FaRegStar />}
-        </button>
-      ) : (
-        <span className="top-nav__spacer" />
-      )}
-    </header>
+      {/* Right slot – favourite */}
+      <div className="slot">
+        {showFavourite && (
+          <button
+            aria-label={favourite ? "Unfavourite" : "Favourite"}
+            className="icon-btn"
+            onClick={onToggleFavourite}
+            type="button"
+          >
+            {favourite ? (
+              /* filled star – replace with solid variant if you add one */
+              <FiStarFilled size={20} />
+            ) : (
+              <FiStar size={20} />
+            )}
+          </button>
+        )}
+      </div>
+    </nav>
   );
 }
