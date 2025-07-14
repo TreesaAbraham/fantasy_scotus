@@ -184,10 +184,10 @@ use 3o
     * [x] feat: `<SearchBar>` component with leading icon & rounded pills
     * [x] chore: debounce search input
     * [x] test: input change calls `onSearch`
-  * [ ] **PR4 – Segmented toggle**
+  * [x] **PR4 – Segmented toggle**
 
-    * [ ] feat: `<SegmentedToggle>` (Upcoming vs All Cases) with badge
-    * [ ] test: toggle fires `onSelect`
+    * [x] feat: `<SegmentedToggle>` (Upcoming vs All Cases) with badge
+    * [x] test: toggle fires `onSelect`
   * [ ] **PR5 – Case row**
 
     * [ ] feat: `<CaseRow>` (rank chip, case name, total points, avatar/icon)

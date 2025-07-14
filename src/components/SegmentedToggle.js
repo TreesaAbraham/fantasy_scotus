@@ -1,33 +1,46 @@
-import React from 'react';
-import '../scotus.css'; // Import your styles
+import React from "react";
+import "../scotus.css";
 
 /**
- * Generic segmented control.
+ * Generic pill-style segmented control.
  *
- * @param {Array<{
- *   id:        string,
- *   label:     string,
- *   badge?:    number | string
- * }>}     segments
- * @param {string}   selectedId
- * @param {Function} onSelect      receives the id that was clicked
+ * Props
+ * ──────────────────────────────────────────
+ * segments   array  [{ id, label, badge? }]
+ * selected   string currently-selected id
+ * onSelect   func   (id) => void
+ *
+ * Example
+ * ──────────────────────────────────────────
+ * <SegmentedToggle
+ *   segments={[
+ *     { id: "upcoming", label: "Upcoming", badge: 4 },
+ *     { id: "all",      label: "All Cases", badge: 23 },
+ *   ]}
+ *   selected="upcoming"
+ *   onSelect={(id) => setSegment(id)}
+ * />
  */
-export default function SegmentedToggle({ segments, selectedId, onSelect }) {
+export default function SegmentedToggle({
+  segments = [],
+  selected,
+  onSelect,
+}) {
   return (
-    <div className="segmented">
+    <div className="segmented-toggle">
       {segments.map(({ id, label, badge }) => {
-        const isActive = id === selectedId;
+        const active = id === selected;
         return (
           <button
             key={id}
-            className={'segmented__btn' + (isActive ? ' segmented__btn--active' : '')}
-            onClick={() => onSelect(id)}
-            aria-pressed={isActive}
+            type="button"
+            className={`segment${active ? " active" : ""}`}
+            onClick={() => onSelect?.(id)}
           >
-            {label}
-            {badge !== undefined && (
-              <span className="segmented__badge">{badge}</span>
-            )}
+            <span>{label}</span>
+
+            {/* Optional badge */}
+            {badge > 0 && <span className="badge">{badge}</span>}
           </button>
         );
       })}

@@ -1,5 +1,6 @@
 // src/AboutFantasy.js
 import React from 'react';
+import '../scotus.css'; // Import your CSS styles
 
 
 export default function AboutFantasy() {
