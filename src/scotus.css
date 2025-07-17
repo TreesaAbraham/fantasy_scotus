@@ -521,7 +521,10 @@ Segmented Toggle
   .searchbar:focus-within {
     box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4); /* blue focus ring */
   }
-  
+    /* =========================================
+  Case Row
+   =========================================*/
+
 
   .case-row {
     display: flex;

@@ -188,17 +188,17 @@ use 3o
 
     * [x] feat: `<SegmentedToggle>` (Upcoming vs All Cases) with badge
     * [x] test: toggle fires `onSelect`
-  * [ ] **PR5 – Case row**
+  * [x] **PR5 – Case row**
 
-    * [ ] feat: `<CaseRow>` (rank chip, case name, total points, avatar/icon)
-    * [ ] style: row spacing & colours
-    * [ ] test: row renders with long case names
-  * [ ] **PR6 – List rendering**
+    * [x] feat: `<CaseRow>` (rank chip, case name, total points, avatar/icon)
+    * [x] style: row spacing & colours
+    * [x] test: row renders with long case names
+  * [x] **PR6 – List rendering**
 
-    * [ ] feat: fetch `/cases?status=upcoming|all` API
-    * [ ] feat: render FlatList of `<CaseRow>`
-    * [ ] chore: wire search + toggle to API params
-    * [ ] test: toggling or searching reloads list
+    * [x] feat: fetch `/cases?status=upcoming|all` API
+    * [x] feat: render FlatList of `<CaseRow>`
+    * [x] chore: wire search + toggle to API params
+    * [x] test: toggling or searching reloads list
   * [ ] **PR7 – Empty & Loading states**
 
     * [ ] feat: show `<EmptyState>` when no cases match

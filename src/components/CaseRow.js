@@ -1,32 +1,65 @@
-import React from "react";
-import { FaGavel } from "react-icons/fa";
+// src/components/CaseRow.js
+import React from 'react';
+import { FaGavel }    from 'react-icons/fa';
+import { FiDownload } from 'react-icons/fi';
 import '../scotus.css';
 
 /**
- * CaseRow
- * ──────────────────────────────────────────
+ * CaseRow – presentational shell (styles live in CSS)
+ *
  * Props
- *   rank        number  (1-based)
- *   name        string  case title
- *   points      number  total points for the user (or case score)
- *   onClick     func    optional row-click handler
+ *  rank        number
+ *  name        string
+ *  points      number
+ *  avatarUrl   string  (optional thumbnail)
+ *  downloadUrl string  (optional original photo)
+ *  onClick     func    (optional row click handler)
  */
-export default function CaseRow({ rank, name, points, onClick }) {
+export default function CaseRow({
+  rank,
+  name,
+  points,
+  avatarUrl,
+  downloadUrl,
+  onClick,
+}) {
   return (
-    <button type="button" className="case-row" onClick={onClick}>
-      {/* Rank chip */}
-      <span className="rank-chip">{rank}</span>
+    <button
+      type="button"
+      className="case-row"
+      onClick={onClick}
+    >
+      {/* rank chip */}
+      <span className="case-rank">{rank}</span>
 
-      {/* Icon */}
-      <FaGavel className="case-icon" size={18} aria-hidden="true" />
+      {/* thumbnail or fallback icon */}
+      {avatarUrl ? (
+        <img src={avatarUrl} alt="" className="case-thumb" />
+      ) : (
+        <FaGavel className="case-icon" aria-hidden="true" />
+      )}
 
-      {/* Case title (flex-grow so it truncates w/ ellipsis) */}
+      {/* title */}
       <span className="case-title" title={name}>
         {name}
       </span>
 
-      {/* Points (right-aligned) */}
+      {/* points */}
       <span className="case-points">{points}</span>
+
+      {/* download button */}
+      {downloadUrl && (
+        <a
+          href={downloadUrl}
+          download
+          onClick={e => e.stopPropagation()}  /* keep row click intact */
+          className="case-download"
+          aria-label="Download photo"
+        >
+          <FiDownload aria-hidden="true" />
+        </a>
+      )}
     </button>
   );
 }
+
