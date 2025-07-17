@@ -523,6 +523,60 @@ Segmented Toggle
   }
   
 
+  .case-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 12px;
+    gap: 10px;
+    background: #ffffff;
+    border: none;
+    border-bottom: 1px solid #f3f4f6; /* light gray divider */
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s;
+    color: #000000;
+  }
+  
+  .case-row:hover {
+    background: #f9fafb; /* subtle hover */
+  }
+  
+  /* Rank chip */
+  .rank-chip {
+    min-width: 28px;
+    height: 28px;
+    font-size: 0.85rem;
+    line-height: 28px;
+    border-radius: 50%;
+    background: #2563eb;  /* blue-600 */
+    color: #fff;
+    text-align: center;
+  }
+  
+  /* Icon colour matches chip for cohesion */
+  .case-icon {
+    flex-shrink: 0;
+    color: #2563eb;
+  }
+  
+  /* Title stretches and truncates */
+  .case-title {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.95rem;
+  }
+  
+  /* Points column */
+  .case-points {
+    flex-shrink: 0;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  
+
 /* ======================================================================
    End of SCOTUS.CSS
    ====================================================================== */  
