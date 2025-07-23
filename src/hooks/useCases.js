@@ -5,7 +5,6 @@ import { supabase } from '../supabaseClient';
  * Fetch cases.
  * @param {'upcoming'|'all'} status
  * @param {string} searchTerm
- * @returns { rows, loading, error, refetch }
  */
 export function useCases(status = 'upcoming', searchTerm = '', limit = 50) {
   const [rows,    setRows]    = useState([]);
@@ -18,27 +17,25 @@ export function useCases(status = 'upcoming', searchTerm = '', limit = 50) {
 
     try {
       const query = supabase
-        .from('cases')                       // adjust table name if needed
-        .select('id, title, total_points, photo_url, status')
+        .from('cases')
+        .select('id, title, total_points, photo_url, casestatus') // ← match column names
         .order('total_points', { ascending: false })
         .limit(limit);
 
-      /* apply filters */
-      if (status === 'upcoming') query.eq('status', 'upcoming');
-      if (searchTerm.trim())    query.ilike('title', `%${searchTerm.trim()}%`);
+      /* filters */
+      if (status === 'upcoming') query.eq('casestatus', 'upcoming'); // ← use correct column
+      if (searchTerm.trim())     query.ilike('title', `%${searchTerm.trim()}%`);
 
       const { data, error } = await query;
-
       if (error) throw error;
 
-      /* map to <CaseRow> props */
       setRows(
         data.map((row, i) => ({
-          rank:      i + 1,
-          id:        row.id,
-          name:      row.title,
-          points:    row.total_points,
-          avatarUrl: row.icon_url || '/img/case-placeholder.png',
+          rank:   i + 1,
+          id:     row.id,
+          name:   row.title,
+          points: row.total_points,
+          avatarUrl: row.photo_url || '/img/case-placeholder.png', // ← use photo_url
         }))
       );
     } catch (err) {
@@ -49,7 +46,6 @@ export function useCases(status = 'upcoming', searchTerm = '', limit = 50) {
     }
   }, [status, searchTerm, limit]);
 
-  /* auto-fetch on mount & when deps change */
   useEffect(() => { fetchRows(); }, [fetchRows]);
 
   return { rows, loading, error, refetch: fetchRows };
