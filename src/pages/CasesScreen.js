@@ -1,7 +1,8 @@
+// src/pages/CasesScreen.js
 import React, { useState } from 'react';
 import '../scotus.css';
 
-/* UI components */
+/* UI */
 import TopNav          from '../components/TopNav';
 import SearchBar       from '../components/SearchBar';
 import SegmentedToggle from '../components/SegmentedToggle';
@@ -9,28 +10,28 @@ import CaseRow         from '../components/CaseRow';
 import CaseSkeletonRow from '../components/CaseSkeletonRow';
 import EmptyState      from '../components/EmptyState';
 
-/* Data hook */
-import { useCases }    from '../hooks/useCases';
+/* Data */
+import { useCases } from '../hooks/useCases';
+import useDebounce  from '../hooks/useDebounce';
 
-/* Helpers */
-import useDebounce from '../hooks/useDebounce';
-import { space }   from '../theme';
+/* Tokens */
+import { space } from '../theme';
 
 export default function CasesScreen() {
-  /* favourite-star */
+  /* star toggle */
   const [isFav, setIsFav] = useState(false);
 
-  /* segmented toggle: 'upcoming' | 'all' */
+  /* 'upcoming' | 'all' */
   const [mode, setMode] = useState('upcoming');
 
-  /* search bar */
+  /* search */
   const [term, setTerm] = useState('');
   const debounced = useDebounce(term, 300);
 
-  /* fetch rows from Supabase */
+  /* fetch */
   const { rows, loading, error } = useCases(mode, debounced);
 
-  /* toggle config (badge counts placeholder until API delivers them) */
+  /* toggle buttons (badges 0 until backend counts ready) */
   const segments = [
     { id: 'upcoming', label: 'Upcoming',  badge: 0 },
     { id: 'all',      label: 'All Cases', badge: 0 },
@@ -38,7 +39,7 @@ export default function CasesScreen() {
 
   return (
     <>
-      {/* ───────── Header ───────── */}
+      {/* header */}
       <TopNav
         title="Case List"
         showBack
@@ -46,31 +47,30 @@ export default function CasesScreen() {
         onToggleFavourite={() => setIsFav(f => !f)}
       />
 
-      {/* ───────── Controls ───────── */}
-      <div style={{ padding: `0 ${space.md}` }}>
+      {/* controls */}
+      <div className="cases-controls" style={{ padding: `0 ${space.md}` }}>
         <SearchBar value={term} onSearch={setTerm} />
-
         <div style={{ marginTop: space.sm }}>
           <SegmentedToggle
             segments={segments}
             selectedId={mode}
-            onSelect={id => setMode(id)}
+            onSelect={setMode}
           />
         </div>
       </div>
 
-      {/* ───────── Main content ───────── */}
+      {/* content */}
       <main
-        className="page"
+        className="cases-page"
         style={{
           padding: space.md,
           minHeight: 'calc(100vh - 60px - var(--space-md))',
           overflowY: 'auto',
         }}
       >
-        {/* loading skeletons */}
+        {/* loading */}
         {loading && (
-          <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+          <ul className="list-unstyled">
             {Array.from({ length: 10 }).map((_, i) => (
               <li key={i}>
                 <CaseSkeletonRow />
@@ -79,23 +79,23 @@ export default function CasesScreen() {
           </ul>
         )}
 
-        {/* error state */}
+        {/* error */}
         {error && (
-          <p style={{ color: 'red', textAlign: 'center' }}>
+          <p className="cases-error">
             {error.message}
           </p>
         )}
 
-        {/* empty state */}
+        {/* empty */}
         {!loading && rows.length === 0 && !error && (
           <EmptyState illustration="/img/no-data.svg">
             No cases match your search.
           </EmptyState>
         )}
 
-        {/* populated list */}
+        {/* results */}
         {!loading && rows.length > 0 && (
-          <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+          <ul className="list-unstyled">
             {rows.map(r => (
               <li key={r.id}>
                 <CaseRow {...r} />

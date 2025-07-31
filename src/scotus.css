@@ -579,6 +579,19 @@ Segmented Toggle
     font-variant-numeric: tabular-nums;
   }
   
+/* ======================================================================
+   Case-skeleton-row
+   ====================================================================== */  
+
+
+  .case-skeleton-row   { display:flex; gap:10px; padding:10px 12px; }
+.sk-chip    { width:28px; height:28px; border-radius:50%; }
+.sk-thumb   { width:28px; height:28px; border-radius:4px; }
+.sk-title   { flex:1; height:14px; border-radius:4px; }
+.sk-points  { width:40px; height:14px; border-radius:4px; }
+.case-skeleton-row > * { background:#e5e7eb; animation: pulse 1.2s infinite; }
+@keyframes pulse { 0%{opacity:.6;} 50%{opacity:.3;} 100%{opacity:.6;} }
+
 
 /* ======================================================================
    End of SCOTUS.CSS

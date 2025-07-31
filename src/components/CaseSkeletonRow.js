@@ -1,12 +1,13 @@
 import React from 'react';
-import '../scotus.css';
+import '../scotus.css';           // your global styles
 
 export default function CaseSkeletonRow() {
   return (
-    <div className="skeleton-row">
-      <div className="skeleton-chip" />
-      <div className="skeleton-rect" style={{ flex: 1 }} />
-      <div className="skeleton-rect" style={{ width: 40 }} />
+    <div className="case-skeleton-row">
+      <div className="sk-chip" />
+      <div className="sk-thumb" />
+      <div className="sk-title" />
+      <div className="sk-points" />
     </div>
   );
 }
