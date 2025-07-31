@@ -594,6 +594,30 @@ Segmented Toggle
 
 
 /* ======================================================================
+ search results-row
+   ====================================================================== */  
+
+
+.search-results {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: var(--space-sm);
+}
+
+.search-results__icon {
+  opacity: 0.6;
+}
+
+.search-results__text {
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+
+/* ======================================================================
    End of SCOTUS.CSS
    ====================================================================== */  
 

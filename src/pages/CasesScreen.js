@@ -2,36 +2,37 @@
 import React, { useState } from 'react';
 import '../scotus.css';
 
-/* UI */
-import TopNav          from '../components/TopNav';
-import SearchBar       from '../components/SearchBar';
-import SegmentedToggle from '../components/SegmentedToggle';
-import CaseRow         from '../components/CaseRow';
-import CaseSkeletonRow from '../components/CaseSkeletonRow';
-import EmptyState      from '../components/EmptyState';
+/* UI components */
+import TopNav              from '../components/TopNav';
+import SearchBar           from '../components/SearchBar';
+import SegmentedToggle     from '../components/SegmentedToggle';
+import SearchResultsHeader from '../components/SearchResultsHeader';
+import CaseRow             from '../components/CaseRow';
+import CaseSkeletonRow     from '../components/CaseSkeletonRow';
+import EmptyState          from '../components/EmptyState';
 
-/* Data */
+/* Data + helpers */
 import { useCases } from '../hooks/useCases';
 import useDebounce  from '../hooks/useDebounce';
 
-/* Tokens */
+/* Design tokens */
 import { space } from '../theme';
 
 export default function CasesScreen() {
-  /* star toggle */
+  /* favourite-star */
   const [isFav, setIsFav] = useState(false);
 
-  /* 'upcoming' | 'all' */
+  /* segmented toggle → 'upcoming' | 'all' */
   const [mode, setMode] = useState('upcoming');
 
-  /* search */
+  /* search term (debounced) */
   const [term, setTerm] = useState('');
-  const debounced = useDebounce(term, 300);
+  const debounced = useDebounce(term, 300);       // hasQuery flag
 
-  /* fetch */
+  /* fetch data */
   const { rows, loading, error } = useCases(mode, debounced);
 
-  /* toggle buttons (badges 0 until backend counts ready) */
+  /* toggle config (badge counts placeholder until you calculate them) */
   const segments = [
     { id: 'upcoming', label: 'Upcoming',  badge: 0 },
     { id: 'all',      label: 'All Cases', badge: 0 },
@@ -39,7 +40,7 @@ export default function CasesScreen() {
 
   return (
     <>
-      {/* header */}
+      {/* ───── Header bar ───── */}
       <TopNav
         title="Case List"
         showBack
@@ -47,7 +48,7 @@ export default function CasesScreen() {
         onToggleFavourite={() => setIsFav(f => !f)}
       />
 
-      {/* controls */}
+      {/* ───── Controls ───── */}
       <div className="cases-controls" style={{ padding: `0 ${space.md}` }}>
         <SearchBar value={term} onSearch={setTerm} />
         <div style={{ marginTop: space.sm }}>
@@ -59,7 +60,7 @@ export default function CasesScreen() {
         </div>
       </div>
 
-      {/* content */}
+      {/* ───── Content area ───── */}
       <main
         className="cases-page"
         style={{
@@ -68,7 +69,7 @@ export default function CasesScreen() {
           overflowY: 'auto',
         }}
       >
-        {/* loading */}
+        {/* Loading skeletons */}
         {loading && (
           <ul className="list-unstyled">
             {Array.from({ length: 10 }).map((_, i) => (
@@ -79,29 +80,34 @@ export default function CasesScreen() {
           </ul>
         )}
 
-        {/* error */}
+        {/* Error */}
         {error && (
-          <p className="cases-error">
-            {error.message}
-          </p>
+          <p className="cases-error">{error.message}</p>
         )}
 
-        {/* empty */}
+        {/* Empty */}
         {!loading && rows.length === 0 && !error && (
           <EmptyState illustration="/img/no-data.svg">
             No cases match your search.
           </EmptyState>
         )}
 
-        {/* results */}
-        {!loading && rows.length > 0 && (
-          <ul className="list-unstyled">
-            {rows.map(r => (
-              <li key={r.id}>
-                <CaseRow {...r} />
-              </li>
-            ))}
-          </ul>
+        {/* Results */}
+        {!loading && rows.length > 0 && !error && (
+          <>
+            {/* Search-results banner appears only when a query is active */}
+            {debounced && (
+              <SearchResultsHeader />
+            )}
+
+            <ul className="list-unstyled">
+              {rows.map(r => (
+                <li key={r.id}>
+                  <CaseRow {...r} />
+                </li>
+              ))}
+            </ul>
+          </>
         )}
       </main>
     </>

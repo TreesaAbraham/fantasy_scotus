@@ -199,11 +199,11 @@ use 3o
     * [x] feat: render FlatList of `<CaseRow>`
     * [x] chore: wire search + toggle to API params
     * [x] test: toggling or searching reloads list
-  * [ ] **PR7 – Empty & Loading states**
+  * [x] **PR7 – Empty & Loading states**
 
-    * [ ] feat: show `<EmptyState>` when no cases match
-    * [ ] chore: add skeleton loaders during fetch
-    * [ ] test: empty state visible on no results
+    * [x] feat: show `<EmptyState>` when no cases match
+    * [x] chore: add skeleton loaders during fetch
+    * [x] test: empty state visible on no results
   * [ ] **PR8 – Search‑results state**
 
     * [ ] feat: show "Search Results" header + icon when query applied
