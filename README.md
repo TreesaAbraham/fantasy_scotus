@@ -210,41 +210,40 @@ use 3o
     * [x] style: header typography & spacing
     * [x] test: header toggles visibility based on `hasQuery`
 
-* [ ] **Predictions Screen**
+*- [ ] **Case Detail / Predictions Screen**
 
-  * [ ] **PR1 – Predictions scaffold**
+  * [x] **PR1 – Predictions scaffold**
+    * [x] feat: add `/predictions` route and `<PredictionsScreen>` placeholder
+    * [x] chore: safe-area & vertical scroll
+    * [x] test: route renders without crash
 
-    * [ ] feat: add `/predictions` route and `<PredictionsScreen>` placeholder
-    * [ ] chore: safe‑area & vertical scroll
-    * [ ] test: route renders without crash
-  * [ ] \*\*
+  * [ ] **PR2 – Case header & meta chips**
+    * [ ] feat: `<CaseHeader>` with back arrow, title, and chips (`docket`, `term`)
+    * [ ] style: pill chips & header spacing (purple-600)
+    * [ ] test: long title wraps/ellipsizes without layout shift
 
-  - [ ] **Case Detail Screen**
-  - [ ] **PR2 – Case header & meta chips**
-    - [ ] feat: `<CaseHeader>` with back arrow, title, and chips (`docket`, `term`)
-    - [ ] style: pill chips & header spacing (purple-600)
-    - [ ] test: long title wraps/ellipsizes without layout shift
-  - [ ] **PR3 – Question Presented section**
-    - [ ] feat: `<QuestionPresented>` block with heading + rich text
-    - [ ] style: section typography & spacing
-    - [ ] test: expand/collapse for long text (optional)
-  - [ ] **PR4 – Prediction summary cards**
-    - [ ] feat: reusable `<PredictionCard>` (title, two progress bars, meta chips)
-    - [ ] feat: render **Crowd Prediction** and **Final Decision** instances
-    - [ ] style: card radius/shadow; green Affirm & red Reverse bars
-    - [ ] test: cards render both states; progress has ARIA roles
-  - [ ] **PR5 – Justice Predictions list**
-    - [ ] feat: `<JusticeRow>` (avatar, name, **Affirm**/**Reverse** pill buttons)
-    - [ ] feat: radio-group behaviour; keep `selectedVotes[justiceId] = 'affirm'|'reverse'|null`
-    - [ ] chore: `JUSTICES` constant (9 names, ids, avatars)
-    - [ ] style: green Affirm / red Reverse pills; focus states for keyboard
-    - [ ] test: clicking toggles state and calls `onChange(justiceId, vote)`
-  - [ ] **PR6 – Save & data wiring**
-    - [ ] feat: map selections to payload and upsert to Supabase `predictions`
-    - [ ] chore: toast on save; disable save when no changes; optimistic update
-    - [ ] test: service posts correct shape; handles API error gracefully
+  * [ ] **PR3 – Question Presented section**
+    * [ ] feat: `<QuestionPresented>` block with heading + rich text
+    * [ ] style: section typography & spacing
+    * [ ] test: expand/collapse for long text (optional)
 
+  * [ ] **PR4 – Prediction summary cards**
+    * [ ] feat: reusable `<PredictionCard>` (title, two progress bars, meta chips)
+    * [ ] feat: render **Crowd Prediction** and **Final Decision** instances
+    * [ ] style: card radius/shadow; green Affirm & red Reverse bars
+    * [ ] test: cards render both states; progress has ARIA roles
 
+  * [ ] **PR5 – Justice Predictions list**
+    * [ ] feat: `<JusticeRow>` (avatar, name, **Affirm**/**Reverse** pill buttons)
+    * [ ] feat: radio-group behaviour; keep `selectedVotes[justiceId] = 'affirm'|'reverse'|null`
+    * [ ] chore: `JUSTICES` constant (9 names, ids, avatars)
+    * [ ] style: green Affirm / red Reverse pills; focus states for keyboard
+    * [ ] test: clicking toggles state and calls `onChange(justiceId, vote)`
+
+  * [ ] **PR6 – Save & data wiring**
+    * [ ] feat: map selections to payload and upsert to Supabase `predictions`
+    * [ ] chore: toast on save; disable save when no changes; optimistic update
+    * [ ] test: service posts correct shape; handles API error gracefully
 
 # Sign in Screen
 

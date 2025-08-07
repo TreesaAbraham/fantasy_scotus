@@ -618,6 +618,79 @@ Segmented Toggle
 
 
 /* ======================================================================
+ predictions
+   ====================================================================== */  
+
+
+.page {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.scroll-y {
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
+
+/* ======================================================================
+ case-Header
+   ====================================================================== */  
+
+
+/* ---------- layout ---------- */
+.case-header {
+  display: grid;
+  grid-template:
+    "back  title  chips" auto
+    / auto 1fr auto;
+  align-items: center;
+  gap: .75rem;
+  padding: .75rem 1rem;
+}
+
+/* ---------- back arrow ---------- */
+.case-header__back {
+  grid-area: back;
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* ---------- title ---------- */
+.case-header__title {
+  grid-area: title;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;   /* ellipsize if too long */
+  white-space: nowrap;
+}
+
+/* ---------- chips ---------- */
+.case-header__chips {
+  grid-area: chips;
+  display: flex;
+  gap: .5rem;
+}
+
+.chip {
+  padding: .15rem .6rem;
+  border-radius: 9999px;
+  font-size: .75rem;
+  font-weight: 500;
+  color: #fff;
+  background: #7e22ce;       /* Tailwind purple-600 hex */
+  white-space: nowrap;
+}
+/* ======================================================================
+   End of predictions
+   ====================================================================== */
+
+/* ======================================================================
    End of SCOTUS.CSS
    ====================================================================== */  
 
