@@ -25,6 +25,7 @@ import LeaderboardScreen from './pages/LeaderboardScreen';
 import MainApp         from "./MainApp";
 import LeaguesScreen from "./pages/LeaguesScreen";
 import CasesScreen from "./pages/CasesScreen";
+import PredictionsScreen from "./pages/PredictionsScreen";
 
 
 
@@ -73,6 +74,7 @@ function App() {
           <Route path="predictions" element={<Predictions />} />
           <Route path="court"       element={<CourtDashboard />} />
           <Route path="leaderboard" element={<LeaderboardScreen />} />
+          <Route path="predictions" element={<PredictionsScreen />} />
 
           {/* Bottom-nav placeholders */}
           <Route path="favorites" element={<p style={{ padding: 20 }}>⭐ Starred screen — TBD</p>} />

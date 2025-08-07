@@ -167,7 +167,7 @@ use 3o
     * [x] chore: add skeleton loaders during fetch
     * [x] test: empty state visible on no results
 
-* [ ] **Cases List Screen**
+* [x] **Cases List Screen**
 
   * [x] **PR1 – Cases scaffold**
 
@@ -204,11 +204,11 @@ use 3o
     * [x] feat: show `<EmptyState>` when no cases match
     * [x] chore: add skeleton loaders during fetch
     * [x] test: empty state visible on no results
-  * [ ] **PR8 – Search‑results state**
+  * [x] **PR8 – Search‑results state**
 
-    * [ ] feat: show "Search Results" header + icon when query applied
-    * [ ] style: header typography & spacing
-    * [ ] test: header toggles visibility based on `hasQuery`
+    * [x] feat: show "Search Results" header + icon when query applied
+    * [x] style: header typography & spacing
+    * [x] test: header toggles visibility based on `hasQuery`
 
 * [ ] **Predictions Screen**
 
@@ -219,8 +219,119 @@ use 3o
     * [ ] test: route renders without crash
   * [ ] \*\*
 
+  - [ ] **Case Detail Screen**
+  - [ ] **PR2 – Case header & meta chips**
+    - [ ] feat: `<CaseHeader>` with back arrow, title, and chips (`docket`, `term`)
+    - [ ] style: pill chips & header spacing (purple-600)
+    - [ ] test: long title wraps/ellipsizes without layout shift
+  - [ ] **PR3 – Question Presented section**
+    - [ ] feat: `<QuestionPresented>` block with heading + rich text
+    - [ ] style: section typography & spacing
+    - [ ] test: expand/collapse for long text (optional)
+  - [ ] **PR4 – Prediction summary cards**
+    - [ ] feat: reusable `<PredictionCard>` (title, two progress bars, meta chips)
+    - [ ] feat: render **Crowd Prediction** and **Final Decision** instances
+    - [ ] style: card radius/shadow; green Affirm & red Reverse bars
+    - [ ] test: cards render both states; progress has ARIA roles
+  - [ ] **PR5 – Justice Predictions list**
+    - [ ] feat: `<JusticeRow>` (avatar, name, **Affirm**/**Reverse** pill buttons)
+    - [ ] feat: radio-group behaviour; keep `selectedVotes[justiceId] = 'affirm'|'reverse'|null`
+    - [ ] chore: `JUSTICES` constant (9 names, ids, avatars)
+    - [ ] style: green Affirm / red Reverse pills; focus states for keyboard
+    - [ ] test: clicking toggles state and calls `onChange(justiceId, vote)`
+  - [ ] **PR6 – Save & data wiring**
+    - [ ] feat: map selections to payload and upsert to Supabase `predictions`
+    - [ ] chore: toast on save; disable save when no changes; optimistic update
+    - [ ] test: service posts correct shape; handles API error gracefully
 
-# Fantasy SCOTUS: Build Signup and login
+
+
+# Sign in Screen
+
+- [ ] **Authentication – Sign In Screen (new design)**
+  - [ ] **PR1 – Auth layout & header**
+    - [ ] feat: create `<AuthLayout>` (centered column, safe-area, scroll)
+    - [ ] feat: `<AuthHeader title="Sign In">` and top illustration asset
+    - [ ] style: apply violet palette & spacing tokens
+    - [ ] test: `/login` route renders header + layout without crash
+
+  - [ ] **PR2 – Credentials form fields**
+    - [ ] feat: `<TextField id="identifier" label="Email/Phone Number">`
+    - [ ] feat: `<PasswordField id="password" label="Password" showHide>`
+    - [ ] style: rounded inputs, focus ring, helper text
+    - [ ] test: validation (required, email format); phone path TODO
+
+  - [ ] **PR3 – Forgot Password flow**
+    - [ ] feat: link “Forgot Password?” → `/reset-password`
+    - [ ] feat: service `requestPasswordReset(email)` via Supabase
+    - [ ] style: subtle inline link under password
+    - [ ] test: success toast on request; error shown on invalid email
+
+  - [ ] **PR4 – Primary CTA**
+    - [ ] feat: `<PrimaryButton>` “Sign In” with loading/disabled states
+    - [ ] chore: submit handler → `supabase.auth.signInWithPassword({ email, password })`
+    - [ ] test: happy path navigates to `/app`; failed path shows error
+
+  - [ ] **PR5 – Social OAuth row**
+    - [ ] feat: `<SocialAuthRow>` with Google + Facebook buttons
+    - [ ] chore: call `supabase.auth.signInWithOAuth({ provider: 'google'|'facebook' })`
+    - [ ] style: divider “or” line between form and OAuth
+    - [ ] test: clicking a provider triggers OAuth call (mocked)
+
+  - [ ] **PR6 – Footer sign-up link**
+    - [ ] feat: “Don’t have an account? SIGN UP” → `/signup`
+    - [ ] style: uppercase emphasis on SIGN UP
+    - [ ] test: link navigates correctly
+
+  - [ ] **PR7 – Accessibility & UX polish**
+    - [ ] style: labels bound to inputs (`for`/`id`), `aria-invalid`, `autocomplete` attrs
+    - [ ] chore: submit on Enter key; return focus to first invalid input
+    - [ ] test: keyboard tab order; screen reader labels present
+
+  - [ ] **PR8 – Security & limits**
+    - [ ] chore: throttle multiple submits (min 1s between attempts)
+    - [ ] chore: log auth errors (no PII) for diagnostics
+    - [ ] test: rapid clicks do not send duplicate auth requests
+
+
+- [ ] **Authentication – Forgot Password Screen**
+  - [ ] **PR1 – Reset Password scaffold & route**
+    - [ ] feat: add `/reset-password` route and `<ResetPasswordScreen>` placeholder
+    - [ ] feat: reuse `<AuthHeader title="Forgot Password?">` with illustration
+    - [ ] style: apply violet spacing/typography to match Sign In
+    - [ ] test: route renders without crash
+
+  - [ ] **PR2 – Identifier field + helper text**
+    - [ ] feat: `<TextField id="identifier" label="Email/Phone Number">`
+    - [ ] style: rounded input, focus ring, subtle helper text under field
+    - [ ] test: validation (required, email format); phone path TODO
+
+  - [ ] **PR3 – Submit flow (Supabase)**
+    - [ ] feat: call `supabase.auth.resetPasswordForEmail(email, { redirectTo })`
+    - [ ] chore: add `REACT_APP_RESET_REDIRECT_URL` to `.env` and config helper
+    - [ ] test: mock Supabase; assert function called with email + redirect
+
+  - [ ] **PR4 – Success UX**
+    - [ ] feat: show inline success state (“We sent you a message…”) or navigate to `CheckEmail` screen
+    - [ ] style: success note with icon; disable submit while loading
+    - [ ] test: success state shows after resolved promise
+
+  - [ ] **PR5 – Divider + Social row (optional)**
+    - [ ] feat: reuse `<SocialAuthRow>` (Google, Facebook) beneath divider “or”
+    - [ ] style: centered icons; responsive spacing
+    - [ ] test: icons render and buttons are keyboard focusable
+
+  - [ ] **PR6 – Footer link**
+    - [ ] feat: “Already have an account? SIGN IN” → `/login`
+    - [ ] style: emphasize SIGN IN; correct hit area
+    - [ ] test: link navigates to login
+
+  - [ ] **PR7 – Accessibility & anti-abuse**
+    - [ ] chore: `aria-invalid`, `autocomplete="email"`, proper `<label for>`
+    - [ ] chore: throttle duplicate submits; handle 429/unknown email gracefully
+    - [ ] test: Enter key submits; first invalid field receives focus
+
+
 
 SCOTUS Case Feed — Feature‑Driven Roadmap
 
