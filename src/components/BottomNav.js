@@ -1,44 +1,44 @@
-// src/components/BottomNav.js
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
-  FaHome,
-  FaTrophy,
-  FaChartBar,
-  FaStar,
-  FaPlusCircle,
-  FaUser,
-  FaLightbulb,        // 💡 NEW: predictions icon
+  FaTrophy,      // Leaderboard
+  FaChartBar,    // Court
+  FaLightbulb,   // Predictions
+  FaStar,        // Favorites
+  FaPlusCircle,  // Create
+  FaUser,        // Profile
+  FaInfoCircle,  // About
 } from 'react-icons/fa';
-import '../scotus.css'; // Import your styles
+import '../scotus.css';
 
-export default function BottomNav() {
-  const navItems = [
-    { to: '/',            icon: <FaHome />,       label: 'Home',   exact: true },
-    { to: '/leaderboard', icon: <FaTrophy />,     label: 'Rank' },
-    { to: '/court',       icon: <FaChartBar />,   label: 'Court' },
-    { to: '/predictions', icon: <FaLightbulb />,  label: 'Predict' }, // 🆕
-    { to: '/favorites',   icon: <FaStar />,       label: 'Starred' },
-    { to: '/create',      icon: <FaPlusCircle />, label: 'Create' },
-    { to: '/profile',     icon: <FaUser />,       label: 'Profile' },
+export default function Navbar() {
+  const items = [
+    { to: '/leaderboard',         label: 'Leaderboard', icon: <FaTrophy /> },
+    { to: '/court',               label: 'Court',       icon: <FaChartBar /> },
+    { to: '/predictions',         label: 'Predict',     icon: <FaLightbulb /> },
+    { to: '/favorites',           label: 'Favorites',   icon: <FaStar /> },
+    { to: '/create',              label: 'Create',      icon: <FaPlusCircle /> },
+    { to: '/profile',             label: 'Profile',     icon: <FaUser /> },
+    { to: '/about-fantasy-scotus',label: 'About',       icon: <FaInfoCircle /> },
   ];
 
   return (
-    <nav className="bottom-nav">
-      {navItems.map(({ to, icon, label, exact }) => (
-        <NavLink
-          key={to}
-          to={to}
-          end={exact}
-          className={({ isActive }) =>
-            'bottom-nav__item' +
-            (isActive ? ' bottom-nav__item--active' : '')
-          }
-        >
-          {icon}
-          <span className="bottom-nav__label">{label}</span>
-        </NavLink>
-      ))}
+    <nav className="fs-nav" role="navigation" aria-label="Primary">
+      <div className="fs-nav__inner">
+        {items.map(({ to, label, icon }) => (
+          <NavLink
+            key={to}
+            to={to}
+            className={({ isActive }) =>
+              'fs-nav__link' + (isActive ? ' fs-nav__link--active' : '')
+            }
+            aria-label={label}
+          >
+            <span className="fs-nav__icon">{icon}</span>
+            <span className="fs-nav__label">{label}</span>
+          </NavLink>
+        ))}
+      </div>
     </nav>
   );
 }

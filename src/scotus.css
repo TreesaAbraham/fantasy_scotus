@@ -57,41 +57,90 @@ a:hover{text-decoration:underline}
 /* ------------------------------------------------------------------ */
 /* 4 ▸ Navbar                                                          */
 /* ------------------------------------------------------------------ */
-.navbar{
-  background:var(--color-midnight-navy);
-  padding:1rem;
-  display:flex;align-items:center;gap:1rem;
-  font-size:.85rem;
+/* Fantasy SCOTUS — Navbar */
+.fs-nav {
+  border-bottom: 1px solid var(--border, #eaeaea);
+  background: var(--surface, #fff);
+  
 }
-.navbar .nav-item{position:relative}
-.navbar .home-btn,
-.navbar .dropbtn{
-  color:var(--color-ivory);
-  background:none;
-  border:none;
-  cursor:pointer;
-  padding:.5rem 1rem;
+
+.fs-nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 10px 16px;
+  flex-wrap: nowrap;       /* keep one row */
+  overflow-x: auto;        /* scroll on tiny screens instead of wrapping */
+  scrollbar-width: none;
 }
-.navbar .home-btn:hover,
-.navbar .dropbtn:hover{opacity:.85}
-/* dropdown */
-.dropdown-content{
-  display:none;
-  position:absolute;top:100%;left:0;
-  min-width:180px;
-  background:var(--color-ivory);
-  border:1px solid var(--color-slate-200);
-  border-radius:4px;
-  box-shadow:0 6px 16px rgba(0,0,0,.08);
-  z-index:20;
+.fs-nav__inner::-webkit-scrollbar { display: none; }
+
+.fs-nav__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: var(--brand-purple);
+  border-radius: 10px;
+  white-space: nowrap;
+  font-weight: 500;
+  flex: 0 0 auto;
+  transition: background 0.15s ease, color 0.15s ease;
 }
-.nav-item.dropdown:hover .dropdown-content{display:block}
-.dropdown-content a{
-  display:block;padding:.75rem 1rem;
-  color:var(--color-midnight-navy);
-  font-size:.9rem;
+.fs-nav__link:hover {
+   background: var(--chip-hover-bg, #f3f0fa); 
+   color: var(--brand-purple, #5b21b6);
+  }
+
+
+.fs-nav__icon { display: inline-flex; }
+.fs-nav__label { line-height: 1; }
+
+/* icons-only on very small screens */
+@media (max-width: 420px) {
+  .fs-nav__label { display: none; }
+  .fs-nav__link { padding: 8px; }
 }
-.dropdown-content a:hover{background:var(--color-slate-100)}
+
+
+:root {
+  --nav-height: 56px; /* adjust to your taste */
+}
+
+/* Dock the nav to the bottom */
+.fs-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--nav-height);
+  border-top: 1px solid var(--border, #eaeaea);
+  border-bottom: none;
+  background: var(--surface, #fff);
+  z-index: 1000;
+  /* iOS safe area */
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), 0px);
+}
+
+/* keep your existing inner layout; optionally center & cap width */
+.fs-nav__inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;     /* good for bottom bars */
+  gap: 16px;                         /* you can reduce since space-around used */
+  padding: 0 12px;                   /* vertical padding comes from height */
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Make sure page content isn’t covered by the fixed bar */
+.app-main {
+  padding-bottom: calc(var(--nav-height) + 16px + env(safe-area-inset-bottom, 0px));
+}
+
 
 /* ------------------------------------------------------------------ */
 /* 5 ▸ Buttons                                                         */
@@ -176,32 +225,6 @@ tbody tr:hover{background:var(--color-slate-200)}
   white-space:nowrap;text-align:right;
   padding-right:.35rem;
   transition:width .3s ease;
-}
-
-/* ------------------------------------------------------------------ */
-/* 11 ▸ Bottom navigation                                              */
-/* ------------------------------------------------------------------ */
-.bottom-nav{
-  position:fixed;bottom:0;left:0;right:0;
-  height:60px;
-  background:#fff;
-  border-top:1px solid var(--color-slate-200);
-  display:flex;justify-content:space-around;align-items:center;
-  z-index:50;
-}
-.bottom-nav .tab{
-  flex:1;display:flex;flex-direction:column;align-items:center;
-  color:var(--color-slate-800);
-  font-size:.7rem;
-  text-decoration:none;
-  padding-top:4px;
-}
-.tab-icon{font-size:1.25rem}
-.tab.active,
-.bottom-nav .tab.active .tab-icon{color:var(--color-royal-purple)}
-.tab.active::before{
-  content:'';position:absolute;top:0;width:100%;height:3px;
-  background:var(--color-royal-purple);
 }
 
 /* ------------------------------------------------------------------ */

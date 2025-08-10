@@ -217,10 +217,10 @@ use 3o
     * [x] chore: safe-area & vertical scroll
     * [x] test: route renders without crash
 
-  * [ ] **PR2 – Case header & meta chips**
-    * [ ] feat: `<CaseHeader>` with back arrow, title, and chips (`docket`, `term`)
-    * [ ] style: pill chips & header spacing (purple-600)
-    * [ ] test: long title wraps/ellipsizes without layout shift
+  * [x] **PR2 – Case header & meta chips**
+    * [x] feat: `<CaseHeader>` with back arrow, title, and chips (`docket`, `term`)
+    * [x] style: pill chips & header spacing (purple-600)
+    * [x] test: long title wraps/ellipsizes without layout shift
 
   * [ ] **PR3 – Question Presented section**
     * [ ] feat: `<QuestionPresented>` block with heading + rich text
@@ -416,3 +416,4 @@ test: component snapshot tests
 
 Next Steps: Tick off commits locally, push to branch, open PR, request review. Merge in order (1→6) for smooth rollout.
 
+notes; curl https://api.oyez.org/cases/2025

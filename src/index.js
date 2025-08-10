@@ -12,39 +12,32 @@ import {
 } from "react-router-dom";
 
 /* ─── Page components ─────────────────────────────────────────────── */
-import HomeScreen      from "./pages/HomeScreen";
-import GettingStarted  from "./pages/GettingStarted";
-import AboutFantasy    from "./pages/AboutFantasy";
-import OfficialRules   from "./pages/OfficialRules";
-import LeagueList      from "./pages/LeagueList";
-import Predictions     from "./pages/PredictionsScreen.js";
-import Signup          from "./pages/Signup";
-import Login           from "./pages/Login";
-import CourtDashboard  from "./pages/CourtDashboard";
-import LeaderboardScreen from './pages/LeaderboardScreen';
-import MainApp         from "./MainApp";
-import LeaguesScreen from "./pages/LeaguesScreen";
-import CasesScreen from "./pages/CasesScreen";
-
-
-
-
+import HomeScreen        from "./pages/HomeScreen";
+import GettingStarted    from "./pages/GettingStarted";
+import AboutFantasy      from "./pages/AboutFantasy";
+import OfficialRules     from "./pages/OfficialRules";
+import LeagueList        from "./pages/LeagueList";
+import Predictions       from "./pages/PredictionsScreen.js";
+import Signup            from "./pages/Signup";
+import Login             from "./pages/Login";
+import CourtDashboard    from "./pages/CourtDashboard";
+import LeaderboardScreen from "./pages/LeaderboardScreen";
+import MainApp           from "./MainApp";
+import LeaguesScreen     from "./pages/LeaguesScreen";
+import CasesScreen       from "./pages/CasesScreen";
 
 /* ─── Shared UI & hooks ───────────────────────────────────────────── */
-import Navbar    from "./components/Navbar";
-import BottomNav from "./components/BottomNav";
+import BottomNav from "./components/BottomNav.js"; // ✅ unified nav
 import { useAuth } from "./hooks/useAuth";
 
 /* ─── Layout shell (shared chrome) ────────────────────────────────── */
 function Shell() {
   return (
     <>
-      <Navbar />
-      {/* The matched route will render inside this outlet */}
       <main style={{ flex: 1 }}>
         <Outlet />
       </main>
-      <BottomNav />
+      <BottomNav /> {/* combined top + bottom nav */}
     </>
   );
 }
@@ -68,14 +61,14 @@ function App() {
           <Route path="official-rules"       element={<OfficialRules />} />
 
           {/* Core lists & dashboards */}
-          <Route path="leagues"        element={<LeaguesScreen />} />
-          <Route path="leagues"     element={<LeagueList />} />
+          <Route path="leagues"     element={<LeaguesScreen />} />
+          <Route path="league-list" element={<LeagueList />} />
           <Route path="cases"       element={<CasesScreen />} />
           <Route path="predictions" element={<Predictions />} />
           <Route path="court"       element={<CourtDashboard />} />
           <Route path="leaderboard" element={<LeaderboardScreen />} />
-       
-          {/* Bottom-nav placeholders */}
+
+          {/* Icon-link placeholders */}
           <Route path="favorites" element={<p style={{ padding: 20 }}>⭐ Starred screen — TBD</p>} />
           <Route path="create"    element={<p style={{ padding: 20 }}>➕ Create screen — TBD</p>} />
           <Route path="profile"   element={<p style={{ padding: 20 }}>👤 Profile screen — TBD</p>} />
@@ -90,7 +83,7 @@ function App() {
             element={session ? <MainApp /> : <Navigate to="/" replace />}
           />
 
-          {/* Catch‑all */}
+          {/* Catch-all */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
