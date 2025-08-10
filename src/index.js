@@ -12,22 +12,22 @@ import {
 } from "react-router-dom";
 
 /* ─── Page components ─────────────────────────────────────────────── */
-import HomeScreen        from "./pages/HomeScreen";
-import GettingStarted    from "./pages/GettingStarted";
-import AboutFantasy      from "./pages/AboutFantasy";
-import OfficialRules     from "./pages/OfficialRules";
-import LeagueList        from "./pages/LeagueList";
-import Predictions       from "./pages/PredictionsScreen.js";
-import Signup            from "./pages/Signup";
-import Login             from "./pages/Login";
-import CourtDashboard    from "./pages/CourtDashboard";
-import LeaderboardScreen from "./pages/LeaderboardScreen";
-import MainApp           from "./MainApp";
-import LeaguesScreen     from "./pages/LeaguesScreen";
-import CasesScreen       from "./pages/CasesScreen";
+import HomeScreen            from "./pages/HomeScreen";
+import GettingStarted        from "./pages/GettingStarted";
+import AboutFantasy          from "./pages/AboutFantasy";
+import OfficialRules         from "./pages/OfficialRules";
+import LeagueList            from "./pages/LeagueList";
+import Predictions           from "./pages/PredictionsScreen.js";
+import Signup                from "./pages/Signup";
+import Login                 from "./pages/Login";
+import CourtDashboard        from "./pages/CourtDashboard";
+import LeaderboardScreen     from "./pages/LeaderboardScreen"; // Users leaderboard
+import MainApp               from "./MainApp";
+import LeaguesScreen         from "./pages/LeaguesScreen";     // ✅ your leagues-only page
+import CasesScreen           from "./pages/CasesScreen";
 
 /* ─── Shared UI & hooks ───────────────────────────────────────────── */
-import BottomNav from "./components/BottomNav.js"; // ✅ unified nav
+import BottomNav from "./components/BottomNav";
 import { useAuth } from "./hooks/useAuth";
 
 /* ─── Layout shell (shared chrome) ────────────────────────────────── */
@@ -37,7 +37,7 @@ function Shell() {
       <main style={{ flex: 1 }}>
         <Outlet />
       </main>
-      <BottomNav /> {/* combined top + bottom nav */}
+      <BottomNav /> {/* bottom-docked */}
     </>
   );
 }
@@ -49,7 +49,6 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* All public routes live inside the Shell layout */}
         <Route element={<Shell />}>
           {/* Home */}
           <Route index element={<HomeScreen />} />
@@ -61,14 +60,18 @@ function App() {
           <Route path="official-rules"       element={<OfficialRules />} />
 
           {/* Core lists & dashboards */}
-          <Route path="leagues"     element={<LeaguesScreen />} />
-          <Route path="league-list" element={<LeagueList />} />
-          <Route path="cases"       element={<CasesScreen />} />
-          <Route path="predictions" element={<Predictions />} />
-          <Route path="court"       element={<CourtDashboard />} />
-          <Route path="leaderboard" element={<LeaderboardScreen />} />
+          <Route path="leagues"       element={<LeaguesScreen />} />   {/* your leagues screen */}
+          <Route path="league-list"   element={<LeagueList />} />      {/* avoid duplicate /leagues */}
+          <Route path="cases"         element={<CasesScreen />} />
+          <Route path="predictions"   element={<Predictions />} />
+          <Route path="court"         element={<CourtDashboard />} />
 
-          {/* Icon-link placeholders */}
+          {/* Leaderboards */}
+          <Route path="leaderboard"           element={<LeaderboardScreen />} />  {/* users (default) */}
+          <Route path="leaderboard/users"     element={<LeaderboardScreen />} />  {/* users */}
+          <Route path="leaderboard/leagues"   element={<LeaguesScreen />} />      {/* ✅ leagues-only */}
+
+          {/* Other bottom-nav targets */}
           <Route path="favorites" element={<p style={{ padding: 20 }}>⭐ Starred screen — TBD</p>} />
           <Route path="create"    element={<p style={{ padding: 20 }}>➕ Create screen — TBD</p>} />
           <Route path="profile"   element={<p style={{ padding: 20 }}>👤 Profile screen — TBD</p>} />

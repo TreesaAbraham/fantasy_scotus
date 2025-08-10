@@ -1,47 +1,40 @@
 // src/pages/LeaguesScreen.js
 import React, { useState } from 'react';
 import '../scotus.css';
-
-/* ─── UI components ─────────────────────────────────────────────── */
-import TopNav            from '../components/TopNav';
-import SegmentedToggle   from '../components/SegmentedToggle';
-import LeagueRow         from '../components/LeagueRow';
+import TopNav from '../components/TopNav';
+import SegmentedToggle from '../components/SegmentedToggle';
+import LeagueRow from '../components/LeagueRow';
 import LeagueSkeletonRow from '../components/LeagueSkeletonRow';
-import EmptyState        from '../components/EmptyState';
-
-/* ─── Data hook ─────────────────────────────────────────────────── */
-import { useLeagues }    from '../hooks/useLeagues';
-
-/* ─── Design tokens ─────────────────────────────────────────────── */
+import EmptyState from '../components/EmptyState';
+import { useLeagues } from '../hooks/useLeagues';
 import { space } from '../theme';
 
 export default function LeaguesScreen() {
-  /* favourite-star toggle */
   const [isFav, setIsFav] = useState(false);
+  const [mode, setMode] = useState('all'); // 'all' | 'law'
 
-  /* segmented toggle: 'all' | 'law' */
-  const [mode, setMode] = useState('all');
-
-  /* toggle config (badge counts hard-coded until API returns them) */
   const segments = [
     { id: 'all', label: 'All Leagues',     badge: 0 },
     { id: 'law', label: 'Law-School Only', badge: 0 },
   ];
 
-  /* fetch data from Supabase */
-  const { rows, loading, error } = useLeagues(mode);
+  // ⬇️ SAFE DEFAULTS (no undefined .length)
+  const result   = useLeagues(mode);
+  const rows     = Array.isArray(result?.rows) ? result.rows : [];
+  const loading  = result?.loading ?? true;
+  const error    = result?.error ?? null;
+  const list     = rows; // just a clearer name below
 
   return (
     <>
-      {/* ───────── Header ───────── */}
       <TopNav
         title="Leagues"
         showBack
-        isFavourite={isFav}
+        showFavourite
+        favourite={isFav}
         onToggleFavourite={() => setIsFav(f => !f)}
       />
 
-      {/* ───────── Segmented toggle ───────── */}
       <div style={{ padding: `0 ${space.md}` }}>
         <SegmentedToggle
           segments={segments}
@@ -50,7 +43,6 @@ export default function LeaguesScreen() {
         />
       </div>
 
-      {/* ───────── Main content ───────── */}
       <main
         className="page"
         style={{
@@ -59,38 +51,30 @@ export default function LeaguesScreen() {
           overflowY: 'auto',
         }}
       >
-        {/* loading skeleton rows */}
         {loading && (
           <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
             {Array.from({ length: 10 }).map((_, i) => (
-              <li key={i}>
-                <LeagueSkeletonRow />
-              </li>
+              <li key={i}><LeagueSkeletonRow /></li>
             ))}
           </ul>
         )}
 
-        {/* error state */}
-        {error && (
+        {!!error && (
           <p style={{ color: 'red', textAlign: 'center' }}>
-            {error.message}
+            {error.message || 'Failed to load leagues.'}
           </p>
         )}
 
-        {/* empty state */}
-        {!loading && rows.length === 0 && !error && (
+        {!loading && !error && list.length === 0 && (
           <EmptyState illustration="/img/no-data.svg">
             Nothing here yet—check back later!
           </EmptyState>
         )}
 
-        {/* populated list */}
-        {!loading && rows.length > 0 && (
+        {!loading && !error && list.length > 0 && (
           <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-            {rows.map(r => (
-              <li key={r.id}>
-                <LeagueRow {...r} />
-              </li>
+            {list.map(r => (
+              <li key={r.id}><LeagueRow {...r} /></li>
             ))}
           </ul>
         )}
