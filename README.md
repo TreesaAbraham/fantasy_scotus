@@ -222,10 +222,10 @@ use 3o
     * [x] style: pill chips & header spacing (purple-600)
     * [x] test: long title wraps/ellipsizes without layout shift
 
-  * [ ] **PR3 – Question Presented section**
-    * [ ] feat: `<QuestionPresented>` block with heading + rich text
-    * [ ] style: section typography & spacing
-    * [ ] test: expand/collapse for long text (optional)
+  * [x] **PR3 – Question Presented section**
+    * [x] feat: `<QuestionPresented>` block with heading + rich text
+    * [x] style: section typography & spacing
+    * [x] test: expand/collapse for long text (optional)
 
   * [ ] **PR4 – Prediction summary cards**
     * [ ] feat: reusable `<PredictionCard>` (title, two progress bars, meta chips)

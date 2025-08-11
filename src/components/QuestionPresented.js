@@ -34,9 +34,9 @@ export default function QuestionPresented({
       <h2 className="qp__title">{title}</h2>
 
       <div
-        className={`qp__prose ${!expanded && shouldShowToggle ? 'is-clamped' : ''}`}
-        style={{ ['--qp-lines']: clampLines }}
-      >
+  className={`qp__prose ${!expanded && shouldShowToggle ? 'is-clamped' : ''}`}
+  style={{ '--qp-lines': clampLines }}
+>
         {hasContent ? (
           isHtml ? (
             <div dangerouslySetInnerHTML={{ __html: content }} />
