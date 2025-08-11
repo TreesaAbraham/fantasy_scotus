@@ -16,7 +16,7 @@ import '../scotus.css';
 export default function Navbar() {
   const items = [
     // existing buttons
-    { to: '/leaderboard',           label: 'Leaderboard', icon: <FaTrophy />,     end: true }, // exact match only
+    { to: '/home',           label: 'Home', icon: <FaTrophy />,     end: true }, // exact match only
     // ✅ new buttons (added without removing anything)
     { to: '/leaderboard/leagues',   label: 'League LB',   icon: <FaUniversity />, aria: 'League Leaderboard' },
     { to: '/leaderboard/users',     label: 'Users LB',    icon: <FaUsers />,      aria: 'Users Leaderboard' },

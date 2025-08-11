@@ -132,7 +132,7 @@ a:hover{text-decoration:underline}
   justify-content: space-around;     /* good for bottom bars */
   gap: 16px;                         /* you can reduce since space-around used */
   padding: 0 12px;                   /* vertical padding comes from height */
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -709,9 +709,56 @@ Segmented Toggle
   background: #7e22ce;       /* Tailwind purple-600 hex */
   white-space: nowrap;
 }
+
+
+
 /* ======================================================================
    End of predictions
    ====================================================================== */
+/* QuestionPresented */
+.qp {
+  background: #fff;
+  border: 1px solid var(--border, #eee);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.qp__title {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.qp__prose {
+  color: var(--text, #111);
+  line-height: 1.5;
+}
+
+/* Clamp HTML safely using line-clamp (no string truncation) */
+.qp__prose.is-clamped {
+  display: -webkit-box;
+  -webkit-line-clamp: var(--qp-lines, 6);
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.qp__placeholder {
+  color: #777;
+}
+
+.qp__toggle {
+  margin-top: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--brand-purple, #5b21b6);
+  background: transparent;
+  color: var(--brand-purple, #5b21b6);
+  font-weight: 600;
+  cursor: pointer;
+}
+.qp__toggle:hover {
+  background: #f6f2ff;
+}
 
 /* ======================================================================
    End of SCOTUS.CSS
