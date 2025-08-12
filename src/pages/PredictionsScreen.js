@@ -6,12 +6,13 @@ import '../scotus.css';
 import TopNav from '../components/TopNav';
 import QuestionPresented from '../components/QuestionPresented';
 import PredictionCard from '../components/PredictionCard';
+import JusticePredictions from '../components/JusticePredictions';
 
 /* Tokens */
 import { space } from '../theme';
 
 export default function PredictionsScreen() {
-  // TODO: replace this with a real fetch from Supabase (cases table)
+  // TODO: swap this stub for a real Supabase fetch (cases table)
   const caseData = useMemo(() => ({
     id: 'demo-1',
     case_number: '23-101',
@@ -21,17 +22,16 @@ export default function PredictionsScreen() {
     question_presented:
       `<p>Whether the Court should <em>clarify</em> the standard for X under Y,
       where lower courts are divided…</p>`,
-    // example crowd aggregate (replace with real aggregates)
+    // Example aggregates (replace with real numbers)
     crowd_affirm_pct: 62,
     crowd_reverse_pct: 38,
     crowd_meta: { median_split: '5–4', n: 123 },
-    // example final decision (0/100 until decided)
     final_affirm_pct: 0,
     final_reverse_pct: 0,
     final_meta: { split: '—', date: '—' },
   }), []);
 
-  // (optional) your personal prediction state — keep if you built PR2/PR3 controls earlier
+  // (Optional) your personal overall prediction
   const [outcome, setOutcome] = useState('affirm'); // 'affirm' | 'reverse'
   const [confidence, setConfidence] = useState(60);
   const [split, setSplit] = useState('5-4');
@@ -39,7 +39,7 @@ export default function PredictionsScreen() {
   const savePrediction = () => {
     // TODO: supabase.from('prediction').upsert({ case_id: caseData.id, outcome, confidence, split })
     console.log('save prediction', { case_id: caseData.id, outcome, confidence, split });
-    alert('Saved (stub) — wire to Supabase next.');
+    alert('Saved (stub). Wire to Supabase next.');
   };
 
   return (
@@ -50,7 +50,7 @@ export default function PredictionsScreen() {
         className="page"
         style={{
           padding: space.md,
-          paddingBottom: `calc(${space.lg} + var(--nav-height, 56px))`,
+          paddingBottom: `calc(${space.lg} + var(--nav-height, 56px))`, // leave room for bottom nav
           display: 'grid',
           gap: space.md,
         }}
@@ -58,7 +58,9 @@ export default function PredictionsScreen() {
         {/* Case header + Question Presented */}
         <section className="card">
           <div style={{ marginBottom: 10 }}>
-            <h2 style={{ margin: 0, fontSize: 18, fontWeight: 800 }}>{caseData.case_name}</h2>
+            <h2 style={{ margin: 0, fontSize: 18, fontWeight: 800 }}>
+              {caseData.case_name}
+            </h2>
             <div style={{ color: '#666', fontSize: 13 }}>
               No. {caseData.case_number} • Argued {caseData.date_argued}
             </div>
@@ -71,7 +73,7 @@ export default function PredictionsScreen() {
           />
         </section>
 
-        {/* PR4: Prediction summary cards */}
+        {/* Summary cards (PR4) */}
         <section className="grid" style={{ display: 'grid', gap: 12 }}>
           <PredictionCard
             title="Crowd Prediction"
@@ -96,7 +98,18 @@ export default function PredictionsScreen() {
           />
         </section>
 
-        {/* (optional) your personal prediction controls — keep if you already built them */}
+        {/* Per-Justice votes (PR5) */}
+        <section className="card" style={{ display: 'grid', gap: 12 }}>
+          <h3 style={{ margin: 0 }}>Per-Justice Votes</h3>
+          <JusticePredictions
+            onChange={(justiceId, vote, nextState) => {
+              // TODO: persist per-justice votes to Supabase
+              console.log('justice vote changed:', justiceId, vote, nextState);
+            }}
+          />
+        </section>
+
+        {/* Optional: your overall prediction controls */}
         <section className="card" style={{ display: 'grid', gap: 14 }}>
           <div className="row">
             <label className="row__label">Outcome</label>
@@ -140,7 +153,9 @@ export default function PredictionsScreen() {
               value={split}
               onChange={(e) => setSplit(e.target.value)}
             >
-              {['9-0','8-1','7-2','6-3','5-4'].map(s => <option key={s} value={s}>{s}</option>)}
+              {['9-0','8-1','7-2','6-3','5-4'].map(s => (
+                <option key={s} value={s}>{s}</option>
+              ))}
             </select>
           </div>
 

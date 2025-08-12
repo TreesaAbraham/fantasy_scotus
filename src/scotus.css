@@ -733,6 +733,7 @@ Segmented Toggle
   color: var(--text, #111);
   line-height: 1.5;
 }
+/*====================================================================== */
 
 /* Clamp HTML safely using line-clamp (no string truncation) */
 .qp__prose.is-clamped {
@@ -758,6 +759,55 @@ Segmented Toggle
 }
 .qp__toggle:hover {
   background: #f6f2ff;
+}
+
+/*====================================================================== */
+
+/* Justice Predictions */
+.jlist { display: grid; gap: 8px; }
+
+.jrow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid var(--border, #eee);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.jrow__left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.jrow__name { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.jrow__avatar {
+  width: 32px; height: 32px; border-radius: 999px; overflow: hidden;
+  background: #f0f0f5; display: grid; place-items: center; font-weight: 800;
+  color: var(--brand-purple, #5b21b6);
+}
+.jrow__avatar img { width: 100%; height: 100%; object-fit: cover; }
+.jrow__initials { font-size: 12px; }
+
+.jrow__right { display: inline-flex; gap: 8px; }
+
+.pill {
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border, #e5e5e5);
+  background: #fff;
+  color: #333;
+  font-weight: 700;
+  cursor: pointer;
+}
+.pill--affirm { color: #166534; border-color: #bbf7d0; }   /* green-700 / green-100 */
+.pill--reverse { color: #991b1b; border-color: #fecaca; }  /* red-800 / red-200 */
+
+.pill.is-active.pill--affirm { background: #16a34a; color: #fff; border-color: #16a34a; }
+.pill.is-active.pill--reverse { background: #dc2626; color: #fff; border-color: #dc2626; }
+
+.pill:focus-visible {
+  outline: 2px solid var(--brand-purple, #5b21b6);
+  outline-offset: 2px;
 }
 
 /* ======================================================================

@@ -227,18 +227,18 @@ use 3o
     * [x] style: section typography & spacing
     * [x] test: expand/collapse for long text (optional)
 
-  * [ ] **PR4 – Prediction summary cards**
-    * [ ] feat: reusable `<PredictionCard>` (title, two progress bars, meta chips)
-    * [ ] feat: render **Crowd Prediction** and **Final Decision** instances
-    * [ ] style: card radius/shadow; green Affirm & red Reverse bars
-    * [ ] test: cards render both states; progress has ARIA roles
+  * [x] **PR4 – Prediction summary cards**
+    * [x] feat: reusable `<PredictionCard>` (title, two progress bars, meta chips)
+    * [x] feat: render **Crowd Prediction** and **Final Decision** instances
+    * [x] style: card radius/shadow; green Affirm & red Reverse bars
+    * [x] test: cards render both states; progress has ARIA roles
 
-  * [ ] **PR5 – Justice Predictions list**
-    * [ ] feat: `<JusticeRow>` (avatar, name, **Affirm**/**Reverse** pill buttons)
-    * [ ] feat: radio-group behaviour; keep `selectedVotes[justiceId] = 'affirm'|'reverse'|null`
-    * [ ] chore: `JUSTICES` constant (9 names, ids, avatars)
-    * [ ] style: green Affirm / red Reverse pills; focus states for keyboard
-    * [ ] test: clicking toggles state and calls `onChange(justiceId, vote)`
+  * [x] **PR5 – Justice Predictions list**
+    * [x] feat: `<JusticeRow>` (avatar, name, **Affirm**/**Reverse** pill buttons)
+    * [x] feat: radio-group behaviour; keep `selectedVotes[justiceId] = 'affirm'|'reverse'|null`
+    * [x] chore: `JUSTICES` constant (9 names, ids, avatars)
+    * [x] style: green Affirm / red Reverse pills; focus states for keyboard
+    * [x] test: clicking toggles state and calls `onChange(justiceId, vote)`
 
   * [ ] **PR6 – Save & data wiring**
     * [ ] feat: map selections to payload and upsert to Supabase `predictions`

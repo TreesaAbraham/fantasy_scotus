@@ -24,7 +24,7 @@ export default function Navbar() {
     { to: '/court',                 label: 'Court',       icon: <FaChartBar /> },
     { to: '/predictions',           label: 'Predict',     icon: <FaLightbulb /> },
     { to: '/favorites',             label: 'Favorites',   icon: <FaStar /> },
-    { to: '/create',                label: 'Create',      icon: <FaPlusCircle /> },
+    { to: '/cases',                label: 'Cases',      icon: <FaPlusCircle /> },
     { to: '/profile',               label: 'Profile',     icon: <FaUser /> },
     { to: '/about-fantasy-scotus',  label: 'About',       icon: <FaInfoCircle /> },
   ];
