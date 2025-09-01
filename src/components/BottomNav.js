@@ -7,7 +7,7 @@ import {
   FaChartBar,    // Court
   FaLightbulb,   // Predictions
   FaStar,        // Favorites
-  FaPlusCircle,  // Create
+  FaGavel,  // Cases
   FaUser,        // Profile
   FaInfoCircle,  // About
 } from 'react-icons/fa';
@@ -24,7 +24,7 @@ export default function Navbar() {
     { to: '/court',                 label: 'Court',       icon: <FaChartBar /> },
     { to: '/predictions',           label: 'Predict',     icon: <FaLightbulb /> },
     { to: '/favorites',             label: 'Favorites',   icon: <FaStar /> },
-    { to: '/cases',                label: 'Cases',      icon: <FaPlusCircle /> },
+    { to: '/cases',                label: 'Cases',      icon: <FaGavel /> },
     { to: '/profile',               label: 'Profile',     icon: <FaUser /> },
     { to: '/about-fantasy-scotus',  label: 'About',       icon: <FaInfoCircle /> },
   ];

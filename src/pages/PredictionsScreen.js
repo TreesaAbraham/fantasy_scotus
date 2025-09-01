@@ -1,5 +1,5 @@
-// src/pages/PredictionsScreen.js
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import '../scotus.css';
 
 /* UI */
@@ -7,50 +7,81 @@ import TopNav from '../components/TopNav';
 import QuestionPresented from '../components/QuestionPresented';
 import PredictionCard from '../components/PredictionCard';
 import JusticePredictions from '../components/JusticePredictions';
+import Toast from '../components/Toast';
+
+/* Data & hooks */
+import { supabase } from '../supabaseClient';
+import { usePredictionSave } from '../hooks/usePredictionSave';
+import { useAuth } from '../hooks/useAuth';
 
 /* Tokens */
 import { space } from '../theme';
 
-export default function PredictionsScreen() {
-  // TODO: swap this stub for a real Supabase fetch (cases table)
-  const caseData = useMemo(() => ({
-    id: 'demo-1',
-    case_number: '23-101',
-    case_name: 'Smith v. United States',
-    date_argued: '2025-02-12',
-    status: 'undecided', // 'decided' | 'undecided'
+/* ---------- Config: tweak if your schema differs ---------- */
+const CASE_TABLE = 'case'; // change to 'cases' if that's your table
+const CASE_ID_COL = 'id';  // change if your PK is different
+
+// Map a raw DB row to the shape the UI expects, with safe fallbacks.
+function mapCaseRow(row) {
+  if (!row) return null;
+  return {
+    id: row[CASE_ID_COL],
+    case_number: row.case_number ?? row.docket_number ?? row.docket ?? '—',
+    case_name: row.case_name ?? row.name ?? row.title ?? 'Unknown case',
+    date_argued: row.date_argued ?? row.argued_on ?? row.heard_on ?? '—',
     question_presented:
-      `<p>Whether the Court should <em>clarify</em> the standard for X under Y,
-      where lower courts are divided…</p>`,
-    // Example aggregates (replace with real numbers)
-    crowd_affirm_pct: 62,
-    crowd_reverse_pct: 38,
-    crowd_meta: { median_split: '5–4', n: 123 },
-    final_affirm_pct: 0,
-    final_reverse_pct: 0,
-    final_meta: { split: '—', date: '—' },
-  }), []);
-
-  // (Optional) your personal overall prediction
-  const [outcome, setOutcome] = useState('affirm'); // 'affirm' | 'reverse'
-  const [confidence, setConfidence] = useState(60);
-  const [split, setSplit] = useState('5-4');
-
-  const savePrediction = () => {
-    // TODO: supabase.from('prediction').upsert({ case_id: caseData.id, outcome, confidence, split })
-    console.log('save prediction', { case_id: caseData.id, outcome, confidence, split });
-    alert('Saved (stub). Wire to Supabase next.');
+      row.question_presented_html ??
+      row.question_presented ??
+      row.question ??
+      null,
+    // Final decision (optional columns)
+    final_outcome: row.final_outcome ?? row.decision_outcome ?? null, // 'affirm'|'reverse'|null
+    final_split: row.final_split ?? row.vote_split ?? null,           // e.g. "6–3"
+    decided_date: row.decided_date ?? row.decision_date ?? null,
   };
+}
+
+/* ------------ Child that owns the save hook --------------- */
+function PredictionBody({ userId, caseData, crowdStats, initialOverall, initialPerJustice }) {
+  const {
+    overall, setOverall,
+    setPerJustice,
+    saving, dirty, save,
+  } = usePredictionSave({
+    userId,
+    caseId: caseData.id,
+    initialOverall,
+    initialPerJustice,
+  });
+
+  const [toast, setToast] = useState({ show: false, message: '', kind: 'success' });
+
+  const handleSave = async () => {
+    const { error } = await save();
+    if (error) {
+      setToast({ show: true, message: 'Save failed. Please try again.', kind: 'error' });
+    } else {
+      setToast({ show: true, message: 'Prediction saved.', kind: 'success' });
+    }
+    setTimeout(() => setToast(t => ({ ...t, show: false })), 1600);
+  };
+
+  // Derive card values (crowd + final)
+  const crowdAffirm = crowdStats?.affirmPct ?? 0;
+  const crowdReverse = Math.max(0, 100 - crowdAffirm);
+  const crowdN = crowdStats?.n ?? 0;
+  const crowdSplit = crowdStats?.medianSplit ?? '—'; // if you add a real median split later
+
+  const finalAffirm = caseData.final_outcome === 'affirm' ? 100 : 0;
+  const finalReverse = caseData.final_outcome === 'reverse' ? 100 : 0;
 
   return (
     <>
-      <TopNav title="Predictions" showBack />
-
       <main
         className="page"
         style={{
           padding: space.md,
-          paddingBottom: `calc(${space.lg} + var(--nav-height, 56px))`, // leave room for bottom nav
+          paddingBottom: `calc(${space.lg} + var(--nav-height, 56px))`,
           display: 'grid',
           gap: space.md,
         }}
@@ -73,58 +104,53 @@ export default function PredictionsScreen() {
           />
         </section>
 
-        {/* Summary cards (PR4) */}
+        {/* Summary cards */}
         <section className="grid" style={{ display: 'grid', gap: 12 }}>
           <PredictionCard
             title="Crowd Prediction"
-            affirmPct={caseData.crowd_affirm_pct ?? 0}
-            reversePct={caseData.crowd_reverse_pct ?? 0}
-            chips={[
-              `Median split ${caseData.crowd_meta?.median_split ?? '—'}`,
-              `N=${caseData.crowd_meta?.n ?? 0} predictions`,
-            ]}
+            affirmPct={crowdAffirm}
+            reversePct={crowdReverse}
+            chips={[`Median split ${crowdSplit}`, `N=${crowdN} predictions`]}
             hint="Based on community submissions"
           />
-
           <PredictionCard
             title="Final Decision"
-            affirmPct={caseData.final_affirm_pct ?? 0}
-            reversePct={caseData.final_reverse_pct ?? 0}
+            affirmPct={finalAffirm}
+            reversePct={finalReverse}
             chips={[
-              `Decided ${caseData.final_meta?.split ?? '—'}`,
-              caseData.final_meta?.date ?? '—',
+              caseData.final_split ? `Decided ${caseData.final_split}` : 'Not decided',
+              caseData.decided_date ?? '—',
             ]}
             hint="Published by the Court"
           />
         </section>
 
-        {/* Per-Justice votes (PR5) */}
+        {/* Per-Justice votes */}
         <section className="card" style={{ display: 'grid', gap: 12 }}>
           <h3 style={{ margin: 0 }}>Per-Justice Votes</h3>
           <JusticePredictions
-            onChange={(justiceId, vote, nextState) => {
-              // TODO: persist per-justice votes to Supabase
-              console.log('justice vote changed:', justiceId, vote, nextState);
+            onChange={(_justiceId, _vote, nextState) => {
+              setPerJustice(nextState);
             }}
           />
         </section>
 
-        {/* Optional: your overall prediction controls */}
+        {/* Overall controls */}
         <section className="card" style={{ display: 'grid', gap: 14 }}>
           <div className="row">
             <label className="row__label">Outcome</label>
             <div style={{ display: 'flex', gap: 8 }}>
               <button
-                className={`btn ${outcome === 'affirm' ? 'btn--primary' : ''}`}
+                className={`btn ${overall.outcome === 'affirm' ? 'btn--primary' : ''}`}
                 type="button"
-                onClick={() => setOutcome('affirm')}
+                onClick={() => setOverall(o => ({ ...o, outcome: 'affirm' }))}
               >
                 Affirm
               </button>
               <button
-                className={`btn ${outcome === 'reverse' ? 'btn--primary' : ''}`}
+                className={`btn ${overall.outcome === 'reverse' ? 'btn--primary' : ''}`}
                 type="button"
-                onClick={() => setOutcome('reverse')}
+                onClick={() => setOverall(o => ({ ...o, outcome: 'reverse' }))}
               >
                 Reverse
               </button>
@@ -133,15 +159,18 @@ export default function PredictionsScreen() {
 
           <div className="row">
             <label className="row__label">
-              Confidence <span className="muted">{confidence}%</span>
+              Confidence <span className="muted">{overall.confidence ?? 0}%</span>
             </label>
             <input
               type="range"
               min={0}
               max={100}
               step={1}
-              value={confidence}
-              onChange={(e) => setConfidence(Number(e.target.value))}
+              value={overall.confidence ?? 0}
+              onChange={(e) => {
+                const v = Number(e.target.value);
+                setOverall(o => ({ ...o, confidence: v }));
+              }}
               className="pred__slider"
             />
           </div>
@@ -150,8 +179,8 @@ export default function PredictionsScreen() {
             <label className="row__label">Predicted split</label>
             <select
               className="pred__select"
-              value={split}
-              onChange={(e) => setSplit(e.target.value)}
+              value={overall.split ?? '5-4'}
+              onChange={(e) => setOverall(o => ({ ...o, split: e.target.value }))}
             >
               {['9-0','8-1','7-2','6-3','5-4'].map(s => (
                 <option key={s} value={s}>{s}</option>
@@ -160,12 +189,166 @@ export default function PredictionsScreen() {
           </div>
 
           <div className="row row--end">
-            <button className="btn btn--primary" onClick={savePrediction} type="button">
-              Save prediction
+            <button
+              className="btn btn--primary"
+              onClick={handleSave}
+              type="button"
+              disabled={saving || !dirty || !userId}
+              title={!userId ? 'Log in to save' : (!dirty ? 'No changes to save' : '')}
+            >
+              {saving ? 'Saving…' : 'Save prediction'}
             </button>
           </div>
         </section>
       </main>
+
+      <Toast show={toast.show} message={toast.message} kind={toast.kind} />
+    </>
+  );
+}
+
+export default function PredictionsScreen() {
+  const session = useAuth();
+  const userId = session?.user?.id ?? null;
+  const { caseId: paramCaseId } = useParams();
+
+  const [caseRow, setCaseRow] = useState(null);
+  const [loadingCase, setLoadingCase] = useState(true);
+  const [caseError, setCaseError] = useState(null);
+
+  const [initialOverall, setInitialOverall] = useState({ outcome: null, confidence: null, split: null });
+  const [initialPerJustice, setInitialPerJustice] = useState({});
+
+  const [crowd, setCrowd] = useState({ affirmPct: 0, n: 0, medianSplit: '—' });
+
+  // Fetch the case row
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadCase() {
+      setLoadingCase(true);
+      setCaseError(null);
+
+      try {
+        let query = supabase.from(CASE_TABLE).select('*');
+        if (paramCaseId) {
+          query = query.eq(CASE_ID_COL, paramCaseId).maybeSingle();
+        } else {
+          // Latest case: order by argued date if present, else created_at
+          // Adjust column names below to match your schema.
+          query = query
+            .order('date_argued', { ascending: false, nullsFirst: false })
+            .order('created_at', { ascending: false, nullsFirst: false })
+            .limit(1)
+            .maybeSingle();
+        }
+        const { data, error } = await query;
+        if (cancelled) return;
+        if (error) throw error;
+        setCaseRow(data);
+      } catch (e) {
+        if (!cancelled) setCaseError(e);
+      } finally {
+        if (!cancelled) setLoadingCase(false);
+      }
+    }
+
+    loadCase();
+    return () => { cancelled = true; };
+  }, [paramCaseId]);
+
+  // Once we have a case, fetch the user's existing prediction (to prefill),
+  // and the crowd aggregates (to feed the card).
+  useEffect(() => {
+    let cancelled = false;
+    const row = mapCaseRow(caseRow);
+    if (!row?.id) return;
+
+    async function loadUserPrediction() {
+      try {
+        const { data, error } = await supabase
+          .from('predictions')
+          .select('*')
+          .eq('user_id', userId || '00000000-0000-0000-0000-000000000000') // if not logged in, this returns 0 rows
+          .eq('case_id', row.id)
+          .maybeSingle();
+
+        if (cancelled) return;
+        if (error && error.code !== 'PGRST116') throw error; // ignore "no rows"
+
+        setInitialOverall({
+          outcome: data?.outcome ?? null,
+          confidence: data?.confidence ?? null,
+          split: data?.split ?? null,
+        });
+        setInitialPerJustice(data?.justice_votes ?? {});
+      } catch (e) {
+        // Prefill errors shouldn’t block the page; keep defaults.
+        console.warn('Failed to prefill prediction', e);
+      }
+    }
+
+    async function loadCrowd() {
+      try {
+        // Count all predictions for this case
+        const totalReq = await supabase
+          .from('predictions')
+          .select('*', { count: 'exact', head: true })
+          .eq('case_id', row.id);
+
+        const affirmReq = await supabase
+          .from('predictions')
+          .select('*', { count: 'exact', head: true })
+          .eq('case_id', row.id)
+          .eq('outcome', 'affirm');
+
+        const total = totalReq.count ?? 0;
+        const affirm = affirmReq.count ?? 0;
+        const affirmPct = total > 0 ? Math.round((affirm / total) * 100) : 0;
+
+        if (!cancelled) {
+          setCrowd({ affirmPct, n: total, medianSplit: '—' }); // plug a real median split later
+        }
+      } catch (e) {
+        console.warn('Failed to load crowd stats', e);
+      }
+    }
+
+    loadUserPrediction();
+    loadCrowd();
+
+    return () => { cancelled = true; };
+  }, [caseRow, userId]);
+
+  const caseData = useMemo(() => mapCaseRow(caseRow), [caseRow]);
+
+  return (
+    <>
+      <TopNav title="Predictions" showBack />
+
+      {loadingCase && (
+        <main className="page" style={{ padding: space.md }}>
+          <div className="card">Loading case…</div>
+        </main>
+      )}
+
+      {!loadingCase && caseError && (
+        <main className="page" style={{ padding: space.md }}>
+          <div className="card" style={{ color: 'red' }}>
+            {caseError.message || 'Failed to load case.'}
+          </div>
+        </main>
+      )}
+
+      {!loadingCase && !caseError && caseData && (
+        <PredictionBody
+          userId={userId}
+          caseData={caseData}
+          crowdStats={crowd}
+          initialOverall={initialOverall}
+          initialPerJustice={initialPerJustice}
+        />
+      )}
     </>
   );
 }
