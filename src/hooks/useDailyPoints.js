@@ -4,30 +4,30 @@ import { supabase } from '../supabaseClient';
 
 /**
  * Returns { points, loading, error }
- *
- * Assumes a `daily_points` view or table with:
+ * Expects a `daily_points` view/table with columns:
  *   - user_id (uuid)
- *   - points  (integer)
- *   - date    (date, truncated at UTC midnight)
+ *   - date    (date)
+ *   - points  (int)
  */
 export function useDailyPoints(userId) {
-  const [points,  setPoints]  = useState(null);
+  const [points,  setPoints]  = useState(0);
   const [loading, setLoading] = useState(true);
   const [error,   setError]   = useState(null);
 
   useEffect(() => {
-    if (!userId) return; // not logged in yet
+    if (!userId) { setLoading(false); return; }
 
     async function fetchPoints() {
+      const today = new Date().toISOString().slice(0, 10); // “YYYY-MM-DD”
       const { data, error } = await supabase
-        .from('user')
+        .from('daily_points')
         .select('points')
         .eq('user_id', userId)
-        .eq('date', new Date().toISOString().slice(0, 10)) // “YYYY-MM-DD”
+        .eq('date', today)
         .single();
 
       if (error) setError(error);
-      else       setPoints(data?.points ?? 0);
+      else setPoints(data?.points ?? 0);
 
       setLoading(false);
     }

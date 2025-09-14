@@ -1,11 +1,11 @@
 // src/components/CaseRow.js
 import React from 'react';
-import { FaGavel }    from 'react-icons/fa';
+import { FaGavel } from 'react-icons/fa';
 import { FiDownload } from 'react-icons/fi';
 import '../scotus.css';
 
 /**
- * CaseRow – presentational shell (styles live in CSS)
+ * CaseRow – single row entry for the cases list
  *
  * Props
  *  rank        number
@@ -23,38 +23,33 @@ export default function CaseRow({
   downloadUrl,
   onClick,
 }) {
+  const prettyPoints =
+    typeof points === 'number' ? points.toLocaleString() : String(points ?? '0');
+
   return (
-    <button
-      type="button"
-      className="case-row"
-      onClick={onClick}
-    >
-      {/* rank chip */}
+    <button type="button" className="case-row" onClick={onClick}>
       <span className="case-rank">{rank}</span>
 
-      {/* thumbnail or fallback icon */}
       {avatarUrl ? (
         <img src={avatarUrl} alt="" className="case-thumb" />
       ) : (
         <FaGavel className="case-icon" aria-hidden="true" />
       )}
 
-      {/* title */}
       <span className="case-title" title={name}>
         {name}
       </span>
 
-      {/* points */}
-      <span className="case-points">{points}</span>
+      <span className="case-points">{prettyPoints}</span>
 
-      {/* download button */}
       {downloadUrl && (
         <a
           href={downloadUrl}
           download
-          onClick={e => e.stopPropagation()}  /* keep row click intact */
+          onClick={(e) => e.stopPropagation()} /* keep row click intact */
           className="case-download"
-          aria-label="Download photo"
+          aria-label="Download case asset"
+          title="Download"
         >
           <FiDownload aria-hidden="true" />
         </a>
@@ -62,4 +57,3 @@ export default function CaseRow({
     </button>
   );
 }
-

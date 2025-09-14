@@ -27,7 +27,7 @@ export default function CasesScreen() {
 
   /* search term (debounced) */
   const [term, setTerm] = useState('');
-  const debounced = useDebounce(term, 300);       // hasQuery flag
+  const debounced = useDebounce(term, 300);
 
   /* fetch data */
   const { rows, loading, error } = useCases(mode, debounced);
@@ -44,7 +44,8 @@ export default function CasesScreen() {
       <TopNav
         title="Case List"
         showBack
-        isFavourite={isFav}
+        showFavourite
+        favourite={isFav}
         onToggleFavourite={() => setIsFav(f => !f)}
       />
 
@@ -62,7 +63,7 @@ export default function CasesScreen() {
 
       {/* ───── Content area ───── */}
       <main
-        className="cases-page"
+        className="cases-page page"
         style={{
           padding: space.md,
           minHeight: 'calc(100vh - 60px - var(--space-md))',
@@ -95,10 +96,7 @@ export default function CasesScreen() {
         {/* Results */}
         {!loading && rows.length > 0 && !error && (
           <>
-            {/* Search-results banner appears only when a query is active */}
-            {debounced && (
-              <SearchResultsHeader />
-            )}
+            {debounced && <SearchResultsHeader />}
 
             <ul className="list-unstyled">
               {rows.map(r => (

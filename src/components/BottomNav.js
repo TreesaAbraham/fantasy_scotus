@@ -1,13 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
-  FaTrophy,      // Leaderboard (main)
+  FaTrophy,      // Home
   FaUsers,       // Users leaderboard
   FaUniversity,  // League leaderboard
   FaChartBar,    // Court
   FaLightbulb,   // Predictions
   FaStar,        // Favorites
-  FaGavel,  // Cases
+  FaGavel,       // Cases
   FaUser,        // Profile
   FaInfoCircle,  // About
 } from 'react-icons/fa';
@@ -15,18 +15,15 @@ import '../scotus.css';
 
 export default function Navbar() {
   const items = [
-    // existing buttons
-    { to: '/home',           label: 'Home', icon: <FaTrophy />,     end: true }, // exact match only
-    // ✅ new buttons (added without removing anything)
-    { to: '/leaderboard/leagues',   label: 'League LB',   icon: <FaUniversity />, aria: 'League Leaderboard' },
-    { to: '/leaderboard/users',     label: 'Users LB',    icon: <FaUsers />,      aria: 'Users Leaderboard' },
-    // rest of your existing buttons
-    { to: '/court',                 label: 'Court',       icon: <FaChartBar /> },
-    { to: '/predictions',           label: 'Predict',     icon: <FaLightbulb /> },
-    { to: '/favorites',             label: 'Favorites',   icon: <FaStar /> },
-    { to: '/cases',                label: 'Cases',      icon: <FaGavel /> },
-    { to: '/profile',               label: 'Profile',     icon: <FaUser /> },
-    { to: '/about-fantasy-scotus',  label: 'About',       icon: <FaInfoCircle /> },
+    { to: '/',                    label: 'Home',     icon: <FaTrophy />,     end: true },
+    { to: '/leaderboard/leagues', label: 'League LB',icon: <FaUniversity />, aria: 'League Leaderboard' },
+    { to: '/leaderboard/users',   label: 'Users LB', icon: <FaUsers />,      aria: 'Users Leaderboard' },
+    { to: '/court',               label: 'Court',    icon: <FaChartBar /> },
+    { to: '/predictions',         label: 'Predict',  icon: <FaLightbulb /> },
+    { to: '/favorites',           label: 'Favorites',icon: <FaStar /> },
+    { to: '/cases',               label: 'Cases',    icon: <FaGavel /> },
+    { to: '/profile',             label: 'Profile',  icon: <FaUser /> },
+    { to: '/about-fantasy-scotus',label: 'About',    icon: <FaInfoCircle /> },
   ];
 
   return (

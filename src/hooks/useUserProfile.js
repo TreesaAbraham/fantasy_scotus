@@ -12,11 +12,11 @@ export function useUserProfile(userId) {
   const [error, setError]       = useState(null);
 
   useEffect(() => {
-    if (!userId) return;
+    if (!userId) { setLoading(false); return; }
 
     async function fetchProfile() {
       const { data, error } = await supabase
-        .from('user')
+        .from('profiles')
         .select('username, avatar_url')
         .eq('id', userId)
         .single();

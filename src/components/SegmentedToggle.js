@@ -8,28 +8,21 @@ import "../scotus.css";
  * ──────────────────────────────────────────
  * segments   array  [{ id, label, badge? }]
  * selected   string currently-selected id
+ * selectedId string alias (back-compat)
  * onSelect   func   (id) => void
- *
- * Example
- * ──────────────────────────────────────────
- * <SegmentedToggle
- *   segments={[
- *     { id: "upcoming", label: "Upcoming", badge: 4 },
- *     { id: "all",      label: "All Cases", badge: 23 },
- *   ]}
- *   selected="upcoming"
- *   onSelect={(id) => setSegment(id)}
- * />
  */
 export default function SegmentedToggle({
   segments = [],
   selected,
+  selectedId, // accept legacy prop from pages
   onSelect,
 }) {
+  const current = selected ?? selectedId;
+
   return (
     <div className="segmented-toggle">
       {segments.map(({ id, label, badge }) => {
-        const active = id === selected;
+        const active = id === current;
         return (
           <button
             key={id}
@@ -38,8 +31,6 @@ export default function SegmentedToggle({
             onClick={() => onSelect?.(id)}
           >
             <span>{label}</span>
-
-            {/* Optional badge */}
             {badge > 0 && <span className="badge">{badge}</span>}
           </button>
         );

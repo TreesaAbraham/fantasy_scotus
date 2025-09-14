@@ -18,8 +18,8 @@ import { useAuth } from '../hooks/useAuth';
 import { space } from '../theme';
 
 /* ---------- Config: tweak if your schema differs ---------- */
-const CASE_TABLE = 'case'; // change to 'cases' if that's your table
-const CASE_ID_COL = 'id';  // change if your PK is different
+const CASE_TABLE = 'cases';
+const CASE_ID_COL = 'id';
 
 // Map a raw DB row to the shape the UI expects, with safe fallbacks.
 function mapCaseRow(row) {
@@ -45,7 +45,7 @@ function mapCaseRow(row) {
 function PredictionBody({ userId, caseData, crowdStats, initialOverall, initialPerJustice }) {
   const {
     overall, setOverall,
-    setPerJustice,
+    perJustice, setPerJustice,
     saving, dirty, save,
   } = usePredictionSave({
     userId,
@@ -70,7 +70,7 @@ function PredictionBody({ userId, caseData, crowdStats, initialOverall, initialP
   const crowdAffirm = crowdStats?.affirmPct ?? 0;
   const crowdReverse = Math.max(0, 100 - crowdAffirm);
   const crowdN = crowdStats?.n ?? 0;
-  const crowdSplit = crowdStats?.medianSplit ?? '—'; // if you add a real median split later
+  const crowdSplit = crowdStats?.medianSplit ?? '—';
 
   const finalAffirm = caseData.final_outcome === 'affirm' ? 100 : 0;
   const finalReverse = caseData.final_outcome === 'reverse' ? 100 : 0;
@@ -129,6 +129,7 @@ function PredictionBody({ userId, caseData, crowdStats, initialOverall, initialP
         <section className="card" style={{ display: 'grid', gap: 12 }}>
           <h3 style={{ margin: 0 }}>Per-Justice Votes</h3>
           <JusticePredictions
+            value={perJustice}
             onChange={(_justiceId, _vote, nextState) => {
               setPerJustice(nextState);
             }}
@@ -234,8 +235,6 @@ export default function PredictionsScreen() {
         if (paramCaseId) {
           query = query.eq(CASE_ID_COL, paramCaseId).maybeSingle();
         } else {
-          // Latest case: order by argued date if present, else created_at
-          // Adjust column names below to match your schema.
           query = query
             .order('date_argued', { ascending: false, nullsFirst: false })
             .order('created_at', { ascending: false, nullsFirst: false })
@@ -257,8 +256,7 @@ export default function PredictionsScreen() {
     return () => { cancelled = true; };
   }, [paramCaseId]);
 
-  // Once we have a case, fetch the user's existing prediction (to prefill),
-  // and the crowd aggregates (to feed the card).
+  // Prefill user prediction and crowd aggregates
   useEffect(() => {
     let cancelled = false;
     const row = mapCaseRow(caseRow);
@@ -269,7 +267,7 @@ export default function PredictionsScreen() {
         const { data, error } = await supabase
           .from('predictions')
           .select('*')
-          .eq('user_id', userId || '00000000-0000-0000-0000-000000000000') // if not logged in, this returns 0 rows
+          .eq('user_id', userId || '00000000-0000-0000-0000-000000000000')
           .eq('case_id', row.id)
           .maybeSingle();
 
@@ -283,14 +281,12 @@ export default function PredictionsScreen() {
         });
         setInitialPerJustice(data?.justice_votes ?? {});
       } catch (e) {
-        // Prefill errors shouldn’t block the page; keep defaults.
         console.warn('Failed to prefill prediction', e);
       }
     }
 
     async function loadCrowd() {
       try {
-        // Count all predictions for this case
         const totalReq = await supabase
           .from('predictions')
           .select('*', { count: 'exact', head: true })
@@ -307,7 +303,7 @@ export default function PredictionsScreen() {
         const affirmPct = total > 0 ? Math.round((affirm / total) * 100) : 0;
 
         if (!cancelled) {
-          setCrowd({ affirmPct, n: total, medianSplit: '—' }); // plug a real median split later
+          setCrowd({ affirmPct, n: total, medianSplit: '—' });
         }
       } catch (e) {
         console.warn('Failed to load crowd stats', e);
