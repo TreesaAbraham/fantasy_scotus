@@ -1,64 +1,71 @@
-// src/Login.js
 import React, { useState } from 'react';
 import { supabase } from '../supabaseClient';
 import { useNavigate, Link } from 'react-router-dom';
-
+import AuthLayout from '../components/auth/AuthLayout';
+import AuthHeader from '../components/auth/AuthHeader';
+import '../scotus.css';
 
 export default function Login() {
-  const [email, setEmail]       = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
     setErrorMsg('');
-
-    const { error } = await supabase.auth.signIn({
-      email,
-      password,
-    });
-
+    setLoading(true);
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    setLoading(false);
     if (error) {
       setErrorMsg(error.message);
-    } else {
-      // Redirect into your protected area
-      navigate('/app');
+      return;
     }
-  };
+    navigate('/app');
+  }
 
-  return (
-    <div style={{ maxWidth: 400, margin: '2rem auto', padding: 20 }}>
-      <h2>Log In</h2>
-      {errorMsg && <p style={{ color: 'red' }}>{errorMsg}</p>}
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
-          <input
-            type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            required
-            style={{ width: '100%', padding: 8, margin: '8px 0' }}
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            required
-            style={{ width: '100%', padding: 8, margin: '8px 0' }}
-          />
-        </label>
-        <button type="submit" style={{ padding: '8px 16px' }}>
-          Sign In
-        </button>
-      </form>
-      <p style={{ marginTop: 12 }}>
-        Don’t have an account? <Link to="/signup">Sign up</Link>
-      </p>
-    </div>
+  return React.createElement(
+    AuthLayout,
+    null,
+    React.createElement(AuthHeader, { title: 'Sign In', subtitle: 'Welcome back to Fantasy SCOTUS' }),
+    errorMsg ? React.createElement('div', { role: 'alert', className: 'auth-error' }, errorMsg) : null,
+    React.createElement(
+      'form',
+      { onSubmit: handleSubmit, 'aria-label': 'Sign in form', className: 'auth-form' },
+      React.createElement('label', { className: 'auth-label', htmlFor: 'email' }, 'Email'),
+      React.createElement('input', {
+        id: 'email',
+        type: 'email',
+        required: true,
+        value: email,
+        onChange: function (e) { setEmail(e.target.value); },
+        className: 'auth-input',
+        placeholder: 'you@example.com',
+        autoComplete: 'email'
+      }),
+      React.createElement('label', { className: 'auth-label', htmlFor: 'password' }, 'Password'),
+      React.createElement('input', {
+        id: 'password',
+        type: 'password',
+        required: true,
+        value: password,
+        onChange: function (e) { setPassword(e.target.value); },
+        className: 'auth-input',
+        placeholder: '••••••••',
+        autoComplete: 'current-password'
+      }),
+      React.createElement(
+        'button',
+        { type: 'submit', className: 'auth-btn-primary', disabled: loading },
+        loading ? 'Signing in…' : 'Sign In'
+      )
+    ),
+    React.createElement(
+      'p',
+      { className: 'auth-muted' },
+      "Don\u2019t have an account? ",
+      React.createElement(Link, { to: '/signup', className: 'auth-link' }, 'Sign up')
+    )
   );
 }

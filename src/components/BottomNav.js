@@ -1,5 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
+
 import {
   FaTrophy,      // Home
   FaUsers,       // Users leaderboard
@@ -10,10 +12,12 @@ import {
   FaGavel,       // Cases
   FaUser,        // Profile
   FaInfoCircle,  // About
+  FaSignInAlt    //Login
 } from 'react-icons/fa';
 import '../scotus.css';
 
 export default function Navbar() {
+  const session = useAuth();
   const items = [
     { to: '/',                    label: 'Home',     icon: <FaTrophy />,     end: true },
     { to: '/leaderboard/leagues', label: 'League LB',icon: <FaUniversity />, aria: 'League Leaderboard' },
@@ -24,6 +28,7 @@ export default function Navbar() {
     { to: '/cases',               label: 'Cases',    icon: <FaGavel /> },
     { to: '/profile',             label: 'Profile',  icon: <FaUser /> },
     { to: '/about-fantasy-scotus',label: 'About',    icon: <FaInfoCircle /> },
+    { to: '/login',              label: 'Login',    icon: <FaSignInAlt />,  aria: 'Log in to your account', end: true, hidden: session  }
   ];
 
   return (
